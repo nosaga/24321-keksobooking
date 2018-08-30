@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Violetta Ashirova](https://up.htmlacademy.ru/javascript/15/user/24321).
-* Наставник: `Неизвестно`.
+* Наставник: `Егор Чеботарев`.
 
 ---
 
