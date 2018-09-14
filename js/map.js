@@ -12,8 +12,6 @@ var adsTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
 
-var ads = [];
-
 var getRandom = function (items) {
   var randomItem = items[Math.floor(Math.random() * items.length)];
   return randomItem;
@@ -23,7 +21,29 @@ var getRandomNumber = function (max, min) {
   var randomNumber = min + Math.random() * (max + 1 - min);
   randomNumber = Math.floor(randomNumber);
   return randomNumber;
+};
+
+var getTypeItems = function (obj, feature, keyArr) {
+  keyArr = [];
+  for (var key in obj) {
+    feature = obj[key];
+    keyArr.push(feature);
+  }
+  var randomKey = getRandom(keyArr)
+  return randomKey;
+};
+
+var getSortedItem = function (items) {
+  items.sort();
+  for (var i = 0; i < items.length; i++) {
+    return items[i];
+  }
 }
+
+var getUniqueItem = function (items, unique) {
+  unique = items.splice(0, 1);
+  return unique;
+};
 
 var srcItems = [
   '01', '02', '03', '04', '05', '06', '07', '08'
@@ -39,35 +59,43 @@ var titleItmes = [
   'Неуютное бунгало по колено в воде'
 ];
 
-var typeItems = ['palace', 'flat', 'house', 'bungalo']
+var typeItems = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalo: 'Бунгало'
+};
+
 var checkinItems = ['12:00', '13:00', '14:00'];
 var checkoutItems = checkinItems;
 var featuresItems = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 var photosItems = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
+var pinSize = 40;
 
 var generateAds = function () {
+  var ads = [];
   for (var i = 0; i < 8; i++) {
     ads.push(
         {
           author: {
-            avatar: 'img/avatars/user' + getRandom(srcItems) + '.png',
+            avatar: 'img/avatars/user' + getUniqueItem(srcItems) + '.png',
           },
           offer: {
             title: getRandom(titleItmes),
             address: '',
             price: getRandomNumber(1000, 1000000).toLocaleString(),
-            type: getRandom(typeItems),
+            type: getTypeItems(typeItems),
             rooms: getRandomNumber(0, 5),
             guests: getRandomNumber(0, 5),
             checkin: getRandom(checkinItems),
             checkout: getRandom(checkoutItems),
             features: getRandom(featuresItems),
             description: '',
-            photos: getRandom(photosItems),
+            photos: getSortedItem(photosItems),
           },
           location: {
-            x: getRandomNumber(300, 800),
-            y: getRandomNumber(130, 630)
+            x: getRandomNumber(300, 800) - pinSize,
+            y: getRandomNumber(130, 630) - pinSize
           }
         }
     );
@@ -75,7 +103,7 @@ var generateAds = function () {
   return ads;
 };
 
-ads = generateAds();
+var ads = generateAds();
 
 var renderPins = function (pin) {
   var pinElement = mapPinTemplate.cloneNode(true);
@@ -108,7 +136,5 @@ var renderAds = function (ad) {
 };
 
 var fragmentAds = document.createDocumentFragment();
-for (var j = 0; j < ads.length; j++) {
-  fragmentAds.appendChild(renderAds(ads[j]));
-}
+fragmentAds.appendChild(renderAds(ads[0]));
 adsDialog.insertBefore(fragmentAds, adsBar);
