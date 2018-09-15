@@ -33,12 +33,17 @@ var getTypeItems = function (obj, feature, keyArr) {
   return randomKey;
 };
 
-var getSortedItem = function (items) {
-  items.sort();
+var compareRandom = function () {
+  return Math.random() - 0.5;
+};
+
+var getSortedItem = function (items, photo) {
+  items.sort(compareRandom);
   for (var i = 0; i < items.length; i++) {
-    return items[i];
+    photo = items[i];
   }
-}
+  return photo;
+};
 
 var getUniqueItem = function (items, unique) {
   unique = items.splice(0, 1);
@@ -113,7 +118,6 @@ var renderPins = function (pin) {
   return pinElement;
 };
 
-
 var fragmentPins = document.createDocumentFragment();
 for (var i = 0; i < ads.length; i++) {
   fragmentPins.appendChild(renderPins(ads[i]));
@@ -130,6 +134,8 @@ var renderAds = function (ad) {
   adElement.querySelector('.popup__text--time').innerHTML = 'Заезд после ' + ad.offer.checkin + ' выезд до ' + ad.offer.checkout;
   adElement.querySelector('.popup__features').innerHTML = ad.offer.features;
   adElement.querySelector('.popup__description').innerHTML = ad.offer.description;
+  adElement.querySelector('.popup__photos').querySelector('.popup__photo').src = ad.offer.photos;
+  adElement.querySelector('.popup__photos').querySelector('.popup__photo').cloneNode(true);
   adElement.querySelector('.popup__photos').querySelector('.popup__photo').src = ad.offer.photos;
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;
   return adElement;
