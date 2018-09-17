@@ -12,9 +12,20 @@ var adsTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
 
-var getRandom = function (items) {
+var photosTile = document.querySelector('#card')
+  .content
+  .querySelector('.popup__photos');
+
+var photosTemplate = photosTile
+  .querySelector('.popup__photo');
+
+var getRandom = function (items, unique) {
   var randomItem = items[Math.floor(Math.random() * items.length)];
-  return randomItem;
+  if (unique) {
+    return items.splice(0, 1);
+  } else {
+    return randomItem;
+  }
 };
 
 var getRandomNumber = function (max, min) {
@@ -23,31 +34,12 @@ var getRandomNumber = function (max, min) {
   return randomNumber;
 };
 
-var getTypeItems = function (obj, feature, keyArr) {
-  keyArr = [];
-  for (var key in obj) {
-    feature = obj[key];
-    keyArr.push(feature);
-  }
-  var randomKey = getRandom(keyArr)
-  return randomKey;
-};
-
 var compareRandom = function () {
   return Math.random() - 0.5;
 };
 
-var getSortedItem = function (items, photo) {
-  items.sort(compareRandom);
-  for (var i = 0; i < items.length; i++) {
-    photo = items[i];
-  }
-  return photo;
-};
-
-var getUniqueItem = function (items, unique) {
-  unique = items.splice(0, 1);
-  return unique;
+var getSortedItem = function (items) {
+  return items.sort(compareRandom);
 };
 
 var srcItems = [
@@ -64,6 +56,8 @@ var titleItmes = [
   'Неуютное бунгало по колено в воде'
 ];
 
+var types = ['palace', 'flat', 'house', 'bungalo'];
+
 var typeItems = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -74,8 +68,9 @@ var typeItems = {
 var checkinItems = ['12:00', '13:00', '14:00'];
 var checkoutItems = checkinItems;
 var featuresItems = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
-var photosItems = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
-var pinSize = 40;
+var photosItems = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
+var pinHeight = 70;
+var pinWidth = 50;
 
 var generateAds = function () {
   var ads = [];
@@ -83,13 +78,13 @@ var generateAds = function () {
     ads.push(
         {
           author: {
-            avatar: 'img/avatars/user' + getUniqueItem(srcItems) + '.png',
+            avatar: 'img/avatars/user' + getRandom(srcItems, true) + '.png',
           },
           offer: {
             title: getRandom(titleItmes),
             address: '',
             price: getRandomNumber(1000, 1000000).toLocaleString(),
-            type: getTypeItems(typeItems),
+            type: typeItems[getRandom(types)],
             rooms: getRandomNumber(0, 5),
             guests: getRandomNumber(0, 5),
             checkin: getRandom(checkinItems),
@@ -99,8 +94,8 @@ var generateAds = function () {
             photos: getSortedItem(photosItems),
           },
           location: {
-            x: getRandomNumber(300, 800) - pinSize,
-            y: getRandomNumber(130, 630) - pinSize
+            x: getRandomNumber(300, 800) - pinWidth / 2,
+            y: getRandomNumber(130, 630) - pinHeight
           }
         }
     );
@@ -110,19 +105,29 @@ var generateAds = function () {
 
 var ads = generateAds();
 
-var renderPins = function (pin) {
+var renderPins = function (i) {
   var pinElement = mapPinTemplate.cloneNode(true);
-  pinElement.style = 'left:' + pin.location.x + 'px;' + 'top:' + pin.location.y + 'px;';
-  pinElement.querySelector('img').src = pin.author.avatar;
-  pinElement.querySelector('img').alt = pin.offer.title;
+  pinElement.style = 'left:' + ads[i].location.x + 'px;' + 'top:' + ads[i].location.y + 'px;';
+  pinElement.setAttribute('data-index', ads[i]);
+  pinElement.querySelector('img').src = ads[i].author.avatar;
+  pinElement.querySelector('img').alt = ads[i].offer.title;
   return pinElement;
 };
 
-var fragmentPins = document.createDocumentFragment();
-for (var i = 0; i < ads.length; i++) {
-  fragmentPins.appendChild(renderPins(ads[i]));
+var setPins = function () {
+  var fragmentPins = document.createDocumentFragment();
+  for (var i = 0; i < ads.length; i++) {
+    fragmentPins.appendChild(renderPins(i));
+    mapPins.appendChild(fragmentPins);
+  }
 }
-mapPins.appendChild(fragmentPins);
+setPins();
+
+var showAds = function (index) {
+  index = ads[i];
+  ads.splice(i--, 1);
+  return index;
+};
 
 var renderAds = function (ad) {
   var adElement = adsTemplate.cloneNode(true);
@@ -134,13 +139,18 @@ var renderAds = function (ad) {
   adElement.querySelector('.popup__text--time').innerHTML = 'Заезд после ' + ad.offer.checkin + ' выезд до ' + ad.offer.checkout;
   adElement.querySelector('.popup__features').innerHTML = ad.offer.features;
   adElement.querySelector('.popup__description').innerHTML = ad.offer.description;
-  adElement.querySelector('.popup__photos').querySelector('.popup__photo').src = ad.offer.photos;
-  adElement.querySelector('.popup__photos').querySelector('.popup__photo').cloneNode(true);
-  adElement.querySelector('.popup__photos').querySelector('.popup__photo').src = ad.offer.photos;
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;
+  var fragmentPhotos = document.createDocumentFragment();
+  for (var i = 0; i < photosItems.length; i++) {
+    photosTemplate.src = photosItems[i]
+    fragmentPhotos.appendChild(photosTemplate);
+    adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
+  }
   return adElement;
 };
 
 var fragmentAds = document.createDocumentFragment();
-fragmentAds.appendChild(renderAds(ads[0]));
-adsDialog.insertBefore(fragmentAds, adsBar);
+for (var i = 0; i < ads.length; i++) {
+  fragmentAds.appendChild(renderAds(showAds()));
+  adsDialog.insertBefore(fragmentAds, adsBar);
+}
