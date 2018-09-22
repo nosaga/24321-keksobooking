@@ -39,6 +39,7 @@ var checkArray = function (objectParam, elem, adKey) {
   }
 };
 
+/* exported global_var */
 var checkData = function (obj, elem) {
   checkString(obj.offer.title, elem.querySelector('.popup__title'), obj.offer.title);
   checkString(obj.offer.address, elem.querySelector('.popup__text--address'), obj.offer.objdress);
