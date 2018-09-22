@@ -1,5 +1,4 @@
-'use strict'
-
+'use strict';
 var checkString = function (objectParam, elem, adKey) {
   if (objectParam === ' ' || typeof (objectParam) !== 'string') {
     elem.remove();
@@ -40,7 +39,7 @@ var checkArray = function (objectParam, elem, adKey) {
   }
 };
 
-function checkData (obj, elem) {
+var checkData = function (obj, elem) {
   checkString(obj.offer.title, elem.querySelector('.popup__title'), obj.offer.title);
   checkString(obj.offer.address, elem.querySelector('.popup__text--address'), obj.offer.objdress);
   checkString(obj.offer.type, elem.querySelector('.popup__type'), obj.offer.type);
