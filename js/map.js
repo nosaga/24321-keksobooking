@@ -188,11 +188,9 @@ var renderAd = function (ad) {
   adElement.querySelector('.popup__description').innerHTML = ad.offer.description;
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;
   var fragmentPhotos = document.createDocumentFragment();
-  var photos = photosTemplate;
-  photos.remove();
   getSortedItem(photosItems);
   for (var i = 0; i < photosItems.length; i++) {
-    var photoTiles = photos.cloneNode(true);
+    var photoTiles = photosTemplate.cloneNode(true);
     photoTiles.src = photosItems[i];
     fragmentPhotos.appendChild(photoTiles);
   }
