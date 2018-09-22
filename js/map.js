@@ -123,7 +123,7 @@ var renderPins = function (i) {
     }
     var target = evt.target;
     target.classList.add('map__pin—active');
-    showAds(target.getAttribute('data-index'));
+    showAds(target.closest('button').getAttribute('data-index'));
   }
 };
 
@@ -136,46 +136,6 @@ var setPins = function () {
 };
 
 setPins();
-
-var checkString = function (objectParam, elem, adKey) {
-  if (objectParam === ' ' || typeof (objectParam) !== 'string') {
-    elem.remove();
-  } else {
-    elem.innderHTML = adKey;
-  }
-};
-
-var checkStrings = function (objectParamOne, objectParamTwo, elem, adKey) {
-  if ((objectParamOne === ' ' || objectParamTwo === ' ') || (typeof (objectParamOne) !== 'string' || typeof (objectParamTwo) !== 'string')) {
-    elem.remove();
-  } else {
-    elem.innderHTML = adKey;
-  }
-};
-
-var checkNumber = function (objectParam, elem, adKey) {
-  if (isNaN(objectParam)) {
-    elem.remove();
-  } else {
-    elem.innderHTML = adKey;
-  }
-};
-
-var checkNumbers = function (objectParamOne, objectParamTwo, elem, adKey) {
-  if (isNaN(objectParamOne) || isNaN(objectParamTwo)) {
-    elem.remove();
-  } else {
-    elem.innderHTML = adKey;
-  }
-};
-
-var checkArray = function (objectParam, elem, adKey) {
-  if (!(Array.isArray(objectParam))) {
-    elem.remove();
-  } else {
-    elem.innderHTML = adKey;
-  }
-};
 
 var renderAd = function (ad) {
   var adElement = adsTemplate.cloneNode(true);
@@ -195,22 +155,9 @@ var renderAd = function (ad) {
     photoTiles.src = photosItems[i];
     fragmentPhotos.appendChild(photoTiles);
   }
+  checkData(ad, adElement);
   adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
-  __checkData();
   return adElement;
-
-  function __checkData() {
-    checkString(ad.offer.title, adElement.querySelector('.popup__title'), ad.offer.title);
-    checkString(ad.offer.address, adElement.querySelector('.popup__text--address'), ad.offer.address);
-    checkString(ad.offer.type, adElement.querySelector('.popup__type'), ad.offer.type);
-    checkNumber(ad.offer.price, adElement.querySelector('.popup__text--price'), ad.offer.price);
-    checkNumbers(ad.offer.rooms, ad.offer.guests, adElement.querySelector('.popup__text--capacity'), (ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей'));
-    checkStrings(ad.offer.checkin, ad.offer.checkout, adElement.querySelector('.popup__text--time'), 'Заезд после ' + ad.offer.checkin + ' выезд до ' + ad.offer.checkout);
-    checkString(ad.offer.features, adElement.querySelector('.popup__features'), ad.offer.features);
-    checkString(ad.offer.description, adElement.querySelector('.popup__description'), ad.offer.description);
-    checkString(ad.author.avatar, adElement.querySelector('.popup__avatar'), ad.author.avatar);
-    checkArray(ad.offer.photos, adElement.querySelector('.popup__photos'), ad.offer.photos);
-  }
 };
 
 var showAds = function (index) {
