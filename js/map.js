@@ -20,7 +20,6 @@ var photosTemplate = photosTile
   .querySelector('.popup__photo');
 photosTile.children[0].remove();
 
-
 var getRandom = function (items, unique) {
   var randomIndex = Math.floor(Math.random() * items.length);
   if (unique) {
@@ -47,6 +46,7 @@ var getSortedItem = function (items) {
 var srcItems = [
   '01', '02', '03', '04', '05', '06', '07', '08'
 ];
+
 var titleItmes = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -134,6 +134,7 @@ var setPins = function () {
   }
   mapPins.appendChild(fragmentPins);
 };
+
 setPins();
 
 var checkString = function (objectParam, elem, adKey) {
@@ -142,7 +143,7 @@ var checkString = function (objectParam, elem, adKey) {
   } else {
     elem.innderHTML = adKey;
   }
-}
+};
 
 var checkStrings = function (objectParamOne, objectParamTwo, elem, adKey) {
   if ((objectParamOne === ' ' || objectParamTwo === ' ') || (typeof (objectParamOne) !== 'string' || typeof (objectParamTwo) !== 'string')) {
@@ -150,7 +151,7 @@ var checkStrings = function (objectParamOne, objectParamTwo, elem, adKey) {
   } else {
     elem.innderHTML = adKey;
   }
-}
+};
 
 var checkNumber = function (objectParam, elem, adKey) {
   if (isNaN(objectParam)) {
@@ -158,7 +159,7 @@ var checkNumber = function (objectParam, elem, adKey) {
   } else {
     elem.innderHTML = adKey;
   }
-}
+};
 
 var checkNumbers = function (objectParamOne, objectParamTwo, elem, adKey) {
   if (isNaN(objectParamOne) || isNaN(objectParamTwo)) {
@@ -166,7 +167,7 @@ var checkNumbers = function (objectParamOne, objectParamTwo, elem, adKey) {
   } else {
     elem.innderHTML = adKey;
   }
-}
+};
 
 var checkArray = function (objectParam, elem, adKey) {
   if (!(Array.isArray(objectParam))) {
