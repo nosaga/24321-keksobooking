@@ -155,7 +155,7 @@ var renderAd = function (ad) {
     photoTiles.src = photosItems[i];
     fragmentPhotos.appendChild(photoTiles);
   }
-  checkData(ad, adElement);
+  window.checkData(ad, adElement);
   adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
   return adElement;
 };
