@@ -1,6 +1,17 @@
 'use strict';
 var adsDialog = document.querySelector('.map');
-adsDialog.classList.remove('map--faded');
+
+var form = document.querySelector('.ad-form');
+var formFields = document.querySelectorAll('fieldset');
+var formFieldsDisabled = formFields;
+for (var l = 0; l < formFields.length; l++) {
+  formFieldsDisabled[l].setAttribute('disabled', 'disabled');
+}
+
+var mapPinMain = document.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mouseup', mapActivationHandler);
+
+var formAddress = form.elements.address;
 
 var mapPins = adsDialog.querySelector('.map__pins');
 var mapPinTemplate = document.querySelector('#pin')
@@ -19,6 +30,16 @@ var photosTile = document.querySelector('#card')
 var photosTemplate = photosTile
   .querySelector('.popup__photo');
 photosTile.children[0].remove();
+
+function mapActivationHandler() {
+  adsDialog.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled')
+  for (var i = 0; i < formFields.length; i++) {
+    formFieldsDisabled[i].removeAttribute('disabled');
+  }
+  setPins();
+  setPinCoords();
+}
 
 var getRandom = function (items, unique) {
   var randomIndex = Math.floor(Math.random() * items.length);
@@ -73,6 +94,15 @@ var featuresItems = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'con
 var photosItems = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var pinHeight = 70;
 var pinWidth = 50;
+var mainPinHeight = 65;
+var mainPinWidth = 65;
+
+/* get coords for addres input */
+var setPinCoords = function () {
+  var x = Math.floor(mapPins.clientWidth / 2 - (mapPinMain.offsetLeft - mainPinWidth / 2));
+  var y = Math.floor(mapPins.clientHeight / 2 - (mapPinMain.offsetTop - mainPinHeight));
+  formAddress.value = x + ', ' + y;
+};
 
 var generateAds = function () {
   var ads = [];
@@ -135,10 +165,10 @@ var setPins = function () {
   mapPins.appendChild(fragmentPins);
 };
 
-setPins();
-
+var ESC_KEYCODE = 27;
 var renderAd = function (ad) {
   var adElement = adsTemplate.cloneNode(true);
+  adElement.querySelector('.popup__close').setAttribute('tabindex', '0');
   adElement.querySelector('.popup__title').innerHTML = ad.offer.title;
   adElement.querySelector('.popup__text--address').innerHTML = ad.offer.address;
   adElement.querySelector('.popup__text--price').innerHTML = ad.offer.price;
@@ -157,10 +187,30 @@ var renderAd = function (ad) {
   }
   window.checkData(ad, adElement);
   adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
+  adElement.querySelector('.popup__close').addEventListener('click', __closeCard);
+  document.addEventListener('keydown', __closeEscPress);
   return adElement;
+  function __closeCard() {
+    adElement.classList.add('hidden');
+  }
+  function __closeEscPress(evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      __closeCard();
+    }
+  }
 };
 
 var showAds = function (index) {
   var ad = renderAd(ads[index]);
-  adsDialog.insertBefore(ad, adsBar);
+  var previousAd = document.querySelector('.map__card');
+  checkAd(previousAd, ad);
 };
+
+var checkAd = function (currentAd, newAd) {
+  if (adsDialog.contains(currentAd) === true) {
+    adsDialog.removeChild(currentAd);
+    adsDialog.insertBefore(newAd, adsBar);
+  } else {
+    adsDialog.insertBefore(newAd, adsBar);
+  }
+}
