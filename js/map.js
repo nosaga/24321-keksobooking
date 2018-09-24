@@ -3,10 +3,9 @@ var adsDialog = document.querySelector('.map');
 
 var form = document.querySelector('.ad-form');
 var formFields = document.querySelectorAll('fieldset');
-var formFieldsDisabled = formFields;
 for (var l = 0; l < formFields.length; l++) {
-  formFieldsDisabled[l].setAttribute('disabled', 'disabled');
-}
+  formFields[l].setAttribute('disabled', 'disabled');
+};
 
 var mapPinMain = document.querySelector('.map__pin--main');
 mapPinMain.addEventListener('mouseup', mapActivationHandler);
@@ -30,16 +29,6 @@ var photosTile = document.querySelector('#card')
 var photosTemplate = photosTile
   .querySelector('.popup__photo');
 photosTile.children[0].remove();
-
-function mapActivationHandler() {
-  adsDialog.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled')
-  for (var i = 0; i < formFields.length; i++) {
-    formFieldsDisabled[i].removeAttribute('disabled');
-  }
-  setPins();
-  setPinCoords();
-}
 
 var getRandom = function (items, unique) {
   var randomIndex = Math.floor(Math.random() * items.length);
@@ -97,12 +86,27 @@ var pinWidth = 50;
 var mainPinHeight = 65;
 var mainPinWidth = 65;
 
+
 /* get coords for addres input */
 var setPinCoords = function () {
-  var x = Math.floor(mapPins.clientWidth / 2 - (mapPinMain.offsetLeft - mainPinWidth / 2));
-  var y = Math.floor(mapPins.clientHeight / 2 - (mapPinMain.offsetTop - mainPinHeight));
+  var mapPinsCoords = mapPins.getBoundingClientRect();
+  var x = Math.floor(mapPinsCoords.left + (mapPinMain.offsetLeft - mainPinWidth / 2));
+  var y = Math.floor(mapPinsCoords.top + (mapPinMain.offsetTop - mainPinHeight));
   formAddress.value = x + ', ' + y;
+  formAddress.setAttribute('readonly', '');
 };
+
+function mapActivationHandler() {
+  adsDialog.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled')
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].removeAttribute('disabled');
+  }
+  setPins();
+  setPinCoords();
+}
+
+document.addEventListener('DOMContentLoaded', setPinCoords);
 
 var generateAds = function () {
   var ads = [];
@@ -207,7 +211,7 @@ var showAds = function (index) {
 };
 
 var checkAd = function (currentAd, newAd) {
-  if (adsDialog.contains(currentAd) === true) {
+  if (adsDialog.contains(currentAd)) {
     adsDialog.removeChild(currentAd);
     adsDialog.insertBefore(newAd, adsBar);
   } else {
