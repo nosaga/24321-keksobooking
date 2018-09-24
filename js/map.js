@@ -5,7 +5,7 @@ var form = document.querySelector('.ad-form');
 var formFields = document.querySelectorAll('fieldset');
 for (var l = 0; l < formFields.length; l++) {
   formFields[l].setAttribute('disabled', 'disabled');
-};
+}
 
 var mapPinMain = document.querySelector('.map__pin--main');
 mapPinMain.addEventListener('mouseup', mapActivationHandler);
@@ -98,7 +98,7 @@ var setPinCoords = function () {
 
 function mapActivationHandler() {
   adsDialog.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled')
+  form.classList.remove('ad-form--disabled');
   for (var i = 0; i < formFields.length; i++) {
     formFields[i].removeAttribute('disabled');
   }
@@ -217,4 +217,4 @@ var checkAd = function (currentAd, newAd) {
   } else {
     adsDialog.insertBefore(newAd, adsBar);
   }
-}
+};
