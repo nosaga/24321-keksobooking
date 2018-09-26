@@ -83,15 +83,14 @@ var featuresItems = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'con
 var photosItems = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var pinHeight = 70;
 var pinWidth = 50;
-var mainPinHeight = 65;
+var mainPinHeight = 87;
 var mainPinWidth = 65;
 
 
 /* get coords for addres input */
 var setPinCoords = function () {
-  var mapPinsCoords = mapPins.getBoundingClientRect();
-  var x = Math.floor(mapPinsCoords.left + (mapPinMain.offsetLeft - mainPinWidth / 2));
-  var y = Math.floor(mapPinsCoords.top + (mapPinMain.offsetTop - mainPinHeight));
+  var x = Math.floor((mapPinMain.offsetLeft + mainPinWidth / 2));
+  var y = Math.floor(mapPinMain.offsetTop + mainPinHeight);
   formAddress.value = x + ', ' + y;
   formAddress.setAttribute('readonly', '');
 };
