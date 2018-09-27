@@ -217,3 +217,21 @@ var checkAd = function (currentAd, newAd) {
     adsDialog.insertBefore(newAd, adsBar);
   }
 };
+
+var roomsNumberInput = form.elements.rooms;
+var guestsNumberInput = form.elements.capacity;
+
+guestsNumberInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value > '1' && roomsNumberInput.value === '1') {
+    target.setCustomValidity('Количество гостей не должно превышать 1');
+  } else if (target.value > '2' && roomsNumberInput.value <= '2') {
+    target.setCustomValidity('Количество гостей не должно превышать 2');
+  } else if (target.value > '3' && roomsNumberInput.value === '3') {
+    target.setCustomValidity('Количество гостей не должно превышать 3');
+  } else if (roomsNumberInput.value === '100' && target.value === 'не для гостей') {
+    target.setCustomValidity('не для гостей');
+  } else {
+    target.setCustomValidity('');
+  }
+});
