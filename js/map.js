@@ -218,20 +218,18 @@ var checkAd = function (currentAd, newAd) {
   }
 };
 
-var roomsNumberInput = form.elements.rooms;
-var guestsNumberInput = form.elements.capacity;
+var rooms = form.elements.rooms;
+var guests = form.elements.capacity;
 
-guestsNumberInput.addEventListener('input', function (evt) {
+guests.addEventListener('change', function (evt) {
   var target = evt.target;
-  if ((target.value > '1' || target.value === '0') && roomsNumberInput.value === '1') {
-    target.setCustomValidity('Количество гостей не должно превышать 1');
-  } else if ((target.value > '2' || target.value === '0') && roomsNumberInput.value === '2') {
-    target.setCustomValidity('Количество гостей не должно превышать 2');
-  } else if ((target.value > '3' || target.value === '0') && roomsNumberInput.value === '3') {
-    target.setCustomValidity('Количество гостей не должно превышать 3');
-  } else if (target.value > '0' && roomsNumberInput.value === '100') {
-    target.setCustomValidity('не для гостей');
+  if (parseInt(rooms.value, 10) === 100 && parseInt(target.value, 10) !== 0) {
+    target.setCustomValidity('100 комнат не для гостей');
+  } else if (parseInt(target.value, 10) === 0 && parseInt(rooms.value, 10) !== 100) {
+    target.setCustomValidity('100 комнат не для гостей');
+  } else if ((parseInt(rooms.value, 10)) >= (parseInt(target.value, 10))) {
+    target. setCustomValidity('');
   } else {
-    target.setCustomValidity('');
+    target.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
   }
 });
