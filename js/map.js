@@ -217,3 +217,19 @@ var checkAd = function (currentAd, newAd) {
     adsDialog.insertBefore(newAd, adsBar);
   }
 };
+
+var rooms = form.elements.rooms;
+var guests = form.elements.capacity;
+
+guests.addEventListener('change', function (evt) {
+  var target = evt.target;
+  if (parseInt(rooms.value, 10) === 100 && parseInt(target.value, 10) !== 0) {
+    target.setCustomValidity('100 комнат не для гостей');
+  } else if (parseInt(target.value, 10) === 0 && parseInt(rooms.value, 10) !== 100) {
+    target.setCustomValidity('100 комнат не для гостей');
+  } else if ((parseInt(rooms.value, 10)) >= (parseInt(target.value, 10))) {
+    target. setCustomValidity('');
+  } else {
+    target.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
+  }
+});
