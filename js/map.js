@@ -1,5 +1,8 @@
 'use strict';
 var adsDialog = document.querySelector('.map');
+var DIALOG_TOP = 130;
+var DIALOG_HEIGHT = 630;
+var DIALOG_WIDTH = 1200;
 
 var form = document.querySelector('.ad-form');
 var formFields = document.querySelectorAll('fieldset');
@@ -235,3 +238,56 @@ guests.addEventListener('change', function (evt) {
     target.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
   }
 });
+
+
+mapPinMain.addEventListener('mousedown', function (e) {
+  e.preventDefault();
+
+  var startCoords = {
+    x: e.clientX + mainPinWidth / 2,
+    y: e.clintY + mainPinHeight
+  };
+
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    var x = Math.floor(mapPinMain.offsetLeft - shift.x);
+    var y = Math.floor(mapPinMain.offsetTop - shift.y);
+
+    if (x > adsDialog.offsetWidth) {
+      x = DIALOG_WIDTH - mainPinWidth;
+    } else if (x < adsDialog.offsetLeft) {
+      x = 0;
+    } else if (y < adsDialog.offsetTop) {
+      y = DIALOG_TOP;
+    } else if (y > DIALOG_HEIGHT) {
+      y = DIALOG_HEIGHT - mainPinHeight;
+    }
+
+
+    mapPinMain.style.left = x + 'px';
+    mapPinMain.style.top = y + 'px';
+    formAddress.value = x + ', ' + y;
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
+})
