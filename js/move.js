@@ -22,14 +22,9 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      if (moveEvt.pageX < adsCoords.left) {
-        return;
-      } else if (moveEvt.pageX > adsCoords.right) {
-        return;
-      } else if (moveEvt.pageY < adsCoords.top + DIALOG_TOP) {
-        return;
-      } else if (moveEvt.pageY > DIALOG_HEIGHT) {
-        return;
+
+      if (!setBounds(moveEvt)) {
+        return false;
       }
       moveAt(moveEvt, shiftX, shiftY);
       setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
@@ -53,21 +48,25 @@
       mainPin.style.top = e.pageY - shiftY + 'px';
     }
 
+    function setCoords(mainPin, coords) {
+      mainPin.style.left = coords.left + 'px';
+    }
+
     function setFormCoords(x, y) {
       formAddressField.value = Math.floor(x) + ', ' + Math.floor(y);
     }
 
-    /* function setBounds(evt) {
-        if (evt.pageX < adsCoords.left) {
-          return;
-        } else if (evt.pageX > adsCoords.right) {
-          return;
-        } else if (evt.pageY < adsCoords.top + DIALOG_TOP) {
-          return;
-        } else if (evt.pageY > DIALOG_HEIGHT) {
-          return;
-        }
-      }*/
+    function setBounds(evt) {
+      if (evt.pageX < adsCoords.left) {
+        return;
+      } else if (evt.pageX > adsCoords.right) {
+        return;
+      } else if (evt.pageY < adsCoords.top + DIALOG_TOP) {
+        return;
+      } else if (evt.pageY > DIALOG_HEIGHT) {
+        return;
+      }
+    }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
