@@ -10,14 +10,11 @@
     var shiftX = e.pageX - coords.left;
     var shiftY = e.pageY - coords.top;
     var adsCoords = window.data.adsDialog.getBoundingClientRect();
-
     document.body.insertAdjacentElement('afterbegin', window.data.mapPinMain);
     moveAt(e, shiftX, shiftY);
-
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      console.log(!setBounds(moveEvt));
       if (!setBounds(moveEvt)) {
         return false;
       }
@@ -39,8 +36,8 @@
       };
     }
     function moveAt(evt, x, y) {
-      window.data.mapPinMain.style.left = e.pageX - x + 'px';
-      window.data.mapPinMain.style.top = e.pageY - y + 'px';
+      window.data.mapPinMain.style.left = evt.pageX - x + 'px';
+      window.data.mapPinMain.style.top = evt.pageY - y + 'px';
     }
 
     function setFormCoords(x, y) {
@@ -48,19 +45,16 @@
     }
 
     function setBounds(evt) {
-      if (evt.pageX < adsCoords.left) {
+      if (evt.pageX < adsCoords.left ||
+        evt.pageX > adsCoords.right ||
+        evt.pageY < adsCoords.top + DIALOG_TOP ||
+        evt.pageY > DIALOG_HEIGHT) {
         return false;
-      } else if (evt.pageX > adsCoords.right) {
-        return false;
-      } else if (evt.pageY < adsCoords.top + DIALOG_TOP) {
-        return false;
-      } else if (evt.pageY > DIALOG_HEIGHT) {
-        return false;
-      } else {
-        return true;
       }
+      return true;
     }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
 })();
