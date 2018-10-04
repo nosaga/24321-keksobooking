@@ -23,13 +23,11 @@
   var getSortedItem = function (items) {
     return items.sort(compareRandom);
   };
-  var ads = window.card.generateAds();
-  
   window.card = {
     generateAds: function () {
-      var ads = [];
+      var ad = [];
       for (var i = 0; i < 8; i++) {
-        ads.push(
+        ad.push(
             {
               author: {
                 avatar: 'img/avatars/user' + getRandom(window.data.srcItems, true) + '.png',
@@ -54,7 +52,7 @@
             }
         );
       }
-      return ads;
+      return ad;
     },
     renderAd: function (ad) {
       var adElement = window.data.adsTemplate.cloneNode(true);
@@ -90,4 +88,6 @@
       }
     }
   };
+
+  window.card.ads = window.card.generateAds();
 })();

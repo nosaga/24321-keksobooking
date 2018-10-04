@@ -15,7 +15,7 @@ function mapActivationHandler() {
 
 document.addEventListener('DOMContentLoaded', window.pin.setPinCoords);
 window.showAds = function (index) {
-  var ad = window.card.renderAd(window.data.ads[index]);
+  var ad = window.card.renderAd(window.card.ads[index]);
   var previousAd = document.querySelector('.map__card');
   checkAd(previousAd, ad);
 };

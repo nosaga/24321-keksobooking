@@ -24,7 +24,7 @@
     setPins: function () {
       var fragmentPins = document.createDocumentFragment();
       for (var i = 0; i < window.card.ads.length; i++) {
-        fragmentPins.appendChild(window.card.renderPins(i));
+        fragmentPins.appendChild(window.pin.renderPins(i));
       }
       window.data.mapPins.appendChild(fragmentPins);
     },
@@ -35,5 +35,4 @@
       window.data.formAddress.setAttribute('readonly', '');
     }
   };
-
 })();

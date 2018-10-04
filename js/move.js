@@ -1,33 +1,28 @@
 'use strict';
 
 (function () {
-  var mainPin = document.querySelector('.map__pin--main');
-  var dialog = document.querySelector('.map');
-  var pinWidth = 65;
-  var pinHeight = 87;
-  var form = document.querySelector('.ad-form');
-  var formAddressField = form.elements.address;
   var DIALOG_TOP = 130;
   var DIALOG_HEIGHT = 630;
 
-  mainPin.addEventListener('mousedown', function (e) {
+  window.data.mapPinMain.addEventListener('mousedown', function (e) {
     e.preventDefault();
-    var coords = getCoords(mainPin);
+    var coords = getCoords(window.data.mapPinMain);
     var shiftX = e.pageX - coords.left;
     var shiftY = e.pageY - coords.top;
-    var adsCoords = dialog.getBoundingClientRect();
+    var adsCoords = window.data.adsDialog.getBoundingClientRect();
 
-    document.body.insertAdjacentElement('afterbegin', mainPin);
+    document.body.insertAdjacentElement('afterbegin', window.data.mapPinMain);
     moveAt(e, shiftX, shiftY);
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
+      console.log(!setBounds(moveEvt));
       if (!setBounds(moveEvt)) {
         return false;
       }
       moveAt(moveEvt, shiftX, shiftY);
-      setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
+      return setFormCoords(moveEvt.pageX - shiftX + window.data.mainPinWidth / 2, moveEvt.pageY - shiftY + window.data.mainPinHeight);
     };
 
     var onMouseUp = function (upEvt) {
@@ -43,17 +38,13 @@
         top: box.top + window.pageYOffset
       };
     }
-    function moveAt(e, shiftX, shiftY) {
-      mainPin.style.left = e.pageX - shiftX + 'px';
-      mainPin.style.top = e.pageY - shiftY + 'px';
-    }
-
-    function setCoords(mainPin, coords) {
-      mainPin.style.left = coords.left + 'px';
+    function moveAt(evt, x, y) {
+      window.data.mapPinMain.style.left = e.pageX - x + 'px';
+      window.data.mapPinMain.style.top = e.pageY - y + 'px';
     }
 
     function setFormCoords(x, y) {
-      formAddressField.value = Math.floor(x) + ', ' + Math.floor(y);
+      window.data.formAddress.value = Math.floor(x) + ', ' + Math.floor(y);
     }
 
     function setBounds(evt) {
@@ -72,4 +63,4 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-})()
+})();
