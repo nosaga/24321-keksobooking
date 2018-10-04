@@ -54,6 +54,7 @@ var pinHeight = 70;
 var pinWidth = 50;
 var mainPinHeight = 87;
 var mainPinWidth = 65;
+var ESC_KEYCODE = 27;
 
 window.data = {
   form: form,
@@ -78,6 +79,7 @@ window.data = {
   pinHeight: pinHeight,
   pinWidth: pinWidth,
   mainPinHeight: mainPinHeight,
-  mainPinWidth: mainPinWidth
+  mainPinWidth: mainPinWidth,
+  ESC_KEYCODE: ESC_KEYCODE,
 };
 

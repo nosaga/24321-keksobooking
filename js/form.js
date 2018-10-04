@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  for (var l = 0; l < window.data.formFields.length; l++) {
+    window.data.formFields[l].setAttribute('disabled', 'disabled');
+  }
   var rooms = window.data.form.elements.rooms;
   var guests = window.data.form.elements.capacity;
 

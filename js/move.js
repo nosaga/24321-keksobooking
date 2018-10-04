@@ -58,13 +58,15 @@
 
     function setBounds(evt) {
       if (evt.pageX < adsCoords.left) {
-        return;
+        return false;
       } else if (evt.pageX > adsCoords.right) {
-        return;
+        return false;
       } else if (evt.pageY < adsCoords.top + DIALOG_TOP) {
-        return;
+        return false;
       } else if (evt.pageY > DIALOG_HEIGHT) {
-        return;
+        return false;
+      } else {
+        return true;
       }
     }
     document.addEventListener('mousemove', onMouseMove);
