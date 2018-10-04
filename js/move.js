@@ -25,7 +25,7 @@
 
       if (!setBounds(moveEvt)) {
         return false;
-      }
+      };
       moveAt(moveEvt, shiftX, shiftY);
       setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
     };
@@ -64,4 +64,4 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-})()
+})();
