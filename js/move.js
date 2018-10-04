@@ -43,13 +43,9 @@
         top: box.top + window.pageYOffset
       };
     }
-    function moveAt(e, shiftX, shiftY) {
-      mainPin.style.left = e.pageX - shiftX + 'px';
-      mainPin.style.top = e.pageY - shiftY + 'px';
-    }
-
-    function setCoords(mainPin, coords) {
-      mainPin.style.left = coords.left + 'px';
+    function moveAt(evt, x, y) {
+      mainPin.style.left = evt.pageX - x + 'px';
+      mainPin.style.top = evt.pageY - y + 'px';
     }
 
     function setFormCoords(x, y) {
@@ -57,15 +53,13 @@
     }
 
     function setBounds(evt) {
-      if (evt.pageX < adsCoords.left) {
-        return;
-      } else if (evt.pageX > adsCoords.right) {
-        return;
-      } else if (evt.pageY < adsCoords.top + DIALOG_TOP) {
-        return;
-      } else if (evt.pageY > DIALOG_HEIGHT) {
-        return;
+      if (evt.pageX < adsCoords.left ||
+        evt.pageX > adsCoords.right ||
+        evt.pageY < adsCoords.top + DIALOG_TOP ||
+        evt.pageY > DIALOG_HEIGHT) {
+        return false;
       }
+      return true;
     }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
