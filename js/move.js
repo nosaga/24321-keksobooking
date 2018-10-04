@@ -25,9 +25,9 @@
 
       if (!setBounds(moveEvt)) {
         return false;
-      };
+      }
       moveAt(moveEvt, shiftX, shiftY);
-      setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
+      return setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
     };
 
     var onMouseUp = function (upEvt) {
