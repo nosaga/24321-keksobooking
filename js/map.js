@@ -1,32 +1,35 @@
 'use strict';
 
-window.data.mapPinMain.addEventListener('mouseup', mapActivationHandler);
-window.data.photosTile.children[0].remove();
+(function () {
+  var data = window.data;
+  var pin = window.pin;
+  data.mapPinMain.addEventListener('mouseup', mapActivationHandler);
+  data.photosTile.children[0].remove();
 
-function mapActivationHandler() {
-  window.data.adsDialog.classList.remove('map--faded');
-  window.data.form.classList.remove('ad-form--disabled');
-  for (var i = 0; i < window.data.formFields.length; i++) {
-    window.data.formFields[i].removeAttribute('disabled');
+  function mapActivationHandler() {
+    data.adsDialog.classList.remove('map--faded');
+    data.form.classList.remove('ad-form--disabled');
+    for (var i = 0; i < data.formFields.length; i++) {
+      data.formFields[i].removeAttribute('disabled');
+    }
+    pin.setPins();
+    pin.setPinCoords();
   }
-  window.pin.setPins();
-  window.pin.setPinCoords();
-}
 
-document.addEventListener('DOMContentLoaded', window.pin.setPinCoords);
-window.showAds = function (index) {
-  var ad = window.card.renderAd(window.card.ads[index]);
-  var previousAd = document.querySelector('.map__card');
-  checkAd(previousAd, ad);
-};
+  document.addEventListener('DOMContentLoaded', pin.setPinCoords);
+  window.showAds = function (index) {
+    var ad = window.card.renderAd(window.card.ads[index]);
+    var previousAd = document.querySelector('.map__card');
+    checkAd(previousAd, ad);
+  };
 
-var checkAd = function (currentAd, newAd) {
-  if (window.data.adsDialog.contains(currentAd)) {
-    window.data.adsDialog.removeChild(currentAd);
-    window.data.adsDialog.insertBefore(newAd, window.data.adsBar);
-  } else {
-    window.data.adsDialog.insertBefore(newAd, window.data.adsBar);
-  }
-};
+  var checkAd = function (currentAd, newAd) {
+    if (data.adsDialog.contains(currentAd)) {
+      data.adsDialog.removeChild(currentAd);
+      data.adsDialog.insertBefore(newAd, data.adsBar);
+    } else {
+      data.adsDialog.insertBefore(newAd, data.adsBar);
+    }
+  };
 
-
+})();

@@ -1,11 +1,12 @@
 'use strict';
 
 (function () {
-  for (var l = 0; l < window.data.formFields.length; l++) {
-    window.data.formFields[l].setAttribute('disabled', 'disabled');
+  var data = window.data;
+  for (var l = 0; l < data.formFields.length; l++) {
+    data.formFields[l].setAttribute('disabled', 'disabled');
   }
-  var rooms = window.data.form.elements.rooms;
-  var guests = window.data.form.elements.capacity;
+  var rooms = data.form.elements.rooms;
+  var guests = data.form.elements.capacity;
 
   guests.addEventListener('change', function (evt) {
     var target = evt.target;
