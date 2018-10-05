@@ -19,7 +19,7 @@
         return false;
       }
       moveAt(moveEvt, shiftX, shiftY);
-      setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
+      return setFormCoords(moveEvt.pageX - shiftX + window.data.mainPinWidth / 2, moveEvt.pageY - shiftY + window.data.mainPinHeight);
     };
 
     var onMouseUp = function (upEvt) {
