@@ -5,6 +5,7 @@
   var card = window.card;
   window.pin = {
     renderPins: function (i) {
+      console.log()
       var pinElement = data.mapPinTemplate.cloneNode(true);
       pinElement.style = 'left:' + card.ads[i].location.x + 'px;' + 'top:' + card.ads[i].location.y + 'px;';
       pinElement.setAttribute('data-index', i);
