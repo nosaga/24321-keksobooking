@@ -1,25 +1,18 @@
 'use strict';
 
 (function () {
-  var mainPin = document.querySelector('.map__pin--main');
-  var dialog = document.querySelector('.map');
-  var pinWidth = 65;
-  var pinHeight = 87;
-  var form = document.querySelector('.ad-form');
-  var formAddressField = form.elements.address;
   var DIALOG_TOP = 130;
   var DIALOG_HEIGHT = 630;
+  var data = window.data;
 
-  mainPin.addEventListener('mousedown', function (e) {
+  data.mapPinMain.addEventListener('mousedown', function (e) {
     e.preventDefault();
-    var coords = getCoords(mainPin);
+    var coords = getCoords(data.mapPinMain);
     var shiftX = e.pageX - coords.left;
     var shiftY = e.pageY - coords.top;
-    var adsCoords = dialog.getBoundingClientRect();
-
-    document.body.insertAdjacentElement('afterbegin', mainPin);
+    var adsCoords = data.adsDialog.getBoundingClientRect();
+    document.body.insertAdjacentElement('afterbegin', data.mapPinMain);
     moveAt(e, shiftX, shiftY);
-
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
@@ -27,7 +20,7 @@
         return false;
       }
       moveAt(moveEvt, shiftX, shiftY);
-      return setFormCoords(moveEvt.pageX - shiftX + pinWidth / 2, moveEvt.pageY - shiftY + pinHeight);
+      return setFormCoords(moveEvt.pageX - shiftX + data.mainPinWidth / 2, moveEvt.pageY - shiftY + data.mainPinHeight);
     };
 
     var onMouseUp = function (upEvt) {
@@ -44,12 +37,12 @@
       };
     }
     function moveAt(evt, x, y) {
-      mainPin.style.left = evt.pageX - x + 'px';
-      mainPin.style.top = evt.pageY - y + 'px';
+      data.mapPinMain.style.left = evt.pageX - x + 'px';
+      data.mapPinMain.style.top = evt.pageY - y + 'px';
     }
 
     function setFormCoords(x, y) {
-      formAddressField.value = Math.floor(x) + ', ' + Math.floor(y);
+      data.formAddress.value = Math.floor(x) + ', ' + Math.floor(y);
     }
 
     function setBounds(evt) {
@@ -64,4 +57,5 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
 })();
