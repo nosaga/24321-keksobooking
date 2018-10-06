@@ -108,8 +108,8 @@
             name="title"
             type="text"
             placeholder="Милая, уютная квартирка в центре Токио"
-            pattern=".{2,25}"
-            title="Заголовок должен содержать не менее 2х и не более 25 символов"
+            pattern=".{30,100}"
+            title="Заголовок должен содержать не менее 30 и не более 100 символов"
             required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
@@ -258,7 +258,7 @@
   </template>
 
   <!-- Сообщение об ошибке создания объеявления -->
-  <template id="error">
+  <template id="error" tabindex="0">
     <div class="error">
       <p class="error__message">Ошибка загрузки объявления</p>
       <button class="error__button" href="#">Попробовать снова</button>
@@ -272,5 +272,6 @@
   <script src="js/pin.js"></script>
   <script src="js/move.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/backend.js"></script>
 </body>
 </html>

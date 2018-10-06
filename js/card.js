@@ -20,7 +20,7 @@
     return Math.random() - 0.5;
   };
 
-  var getSortedItem = function (items) {
+  window.getSortedItem = function (items) {
     return items.sort(compareRandom);
   };
   var data = window.data;
@@ -44,7 +44,7 @@
                 checkout: getRandom(data.checkoutItems),
                 features: getRandom(data.featuresItems),
                 description: '',
-                photos: getSortedItem(data.photosItems),
+                photos: window.getSortedItem(data.photosItems),
               },
               location: {
                 x: getRandomNumber(300, 800) - data.pinWidth / 2,
@@ -68,7 +68,7 @@
       adElement.querySelector('.popup__description').innerHTML = ad.offer.description;
       adElement.querySelector('.popup__avatar').src = ad.author.avatar;
       var fragmentPhotos = document.createDocumentFragment();
-      getSortedItem(data.photosItems);
+      window.getSortedItem(data.photosItems);
       for (var i = 0; i < data.photosItems.length; i++) {
         var photoTiles = data.photosTemplate.cloneNode(true);
         photoTiles.src = data.photosItems[i];
@@ -90,5 +90,7 @@
     }
   };
 
-  window.card.ads = window.card.generateAds();
+  /*window.card.ads = window.card.generateAds();*/
+
 })();
+

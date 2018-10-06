@@ -16,6 +16,12 @@
     pin.setPinCoords();
   }
 
+  function mapDeactivationHandler() {
+    data.adsDialog.classList.add('map--faded');
+    data.adsDialog.removeChild(document.querySelector('.map__card'));
+    data.adsDialog.removeChild(document.querySelector('.map__pins'));
+  }
+
   document.addEventListener('DOMContentLoaded', pin.setPinCoords);
   window.showAds = function (index) {
     var ad = window.card.renderAd(window.card.ads[index]);
@@ -31,5 +37,10 @@
       data.adsDialog.insertBefore(newAd, data.adsBar);
     }
   };
+
+  window.data.formReset.addEventListener('click', function () {
+    window.data.form.reset();
+    mapDeactivationHandler();
+  });
 
 })();
