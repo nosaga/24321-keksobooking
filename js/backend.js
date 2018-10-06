@@ -76,7 +76,8 @@ function hideErrorMessage() {
 }
 
 function escPress(evt) {
-  if (evt.keyCode === window.data.ESC_KEYCODE) {
+  var target = evt.target;
+  if (evt.keyCode === window.data.ESC_KEYCODE || target !== window.data.ESC_KEYCODE) {
     hideSuccessMessage();
   }
 }
@@ -104,9 +105,11 @@ var onErrorUpload = function () {
 window.data.form.addEventListener('submit', function (evt) {
   evt.preventDefault();
   window.upload(new FormData(window.data.form), function (response) {
-    if (response[0]['errorMessage'] === 'is not correct') {
+    console.log(response);
+    if (!(response[0]['errorMessage'] === 'is not correct')) {
       return onErrorUpload();
+    } else {
+      return onSuccessUpload();
     }
-    return onSuccessUpload();
   });
 });
