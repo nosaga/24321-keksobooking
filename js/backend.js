@@ -42,25 +42,17 @@ window.load('https://js.dump.academy/keksobooking/data', onLoad, onError);
 
 var URL = 'https://js.dump.academy/keksobooking';
 
-window.upload = function (data, onLoad) {
-  console.log(data);
+window.upload = function (data, onSuccess, onBadData) {
   var xhr = new XMLHttpRequest();
-
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function () {
-    onLoad(xhr.response);
+    if (xhr.status === 200) {
+      onSuccess(onSuccessUpload());
+    } else {
+      onBadData(onErrorUpload());
+    }
   });
-
-  xhr.addEventListener('error', function () {
-    onError('Произошла ошибка соединения');
-  });
-
-  xhr.addEventListener('timeout', function () {
-    onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-  });
-
-  xhr.timeout = 10000;
 
   xhr.open('POST', URL);
   xhr.send(data);
@@ -76,8 +68,7 @@ function hideErrorMessage() {
 }
 
 function escPress(evt) {
-  var target = evt.target;
-  if (evt.keyCode === window.data.ESC_KEYCODE || target !== window.data.ESC_KEYCODE) {
+  if (evt.keyCode === window.data.ESC_KEYCODE) {
     hideSuccessMessage();
   }
 }
@@ -85,6 +76,9 @@ function escPress(evt) {
 var showSuccessMessage = function () {
   window.data.main.appendChild(window.data.successMessage);
   document.addEventListener('keydown', escPress);
+  document.addEventListener('click', function () {
+    hideSuccessMessage();
+  });
 };
 
 var showErrorMessage = function () {
@@ -92,10 +86,14 @@ var showErrorMessage = function () {
   window.data.closeButton.addEventListener('click', function () {
     hideErrorMessage();
   });
+  document.addEventListener('click', function () {
+    hideErrorMessage();
+  });
 };
 
 var onSuccessUpload = function () {
   showSuccessMessage();
+  window.map.mapDeactivationHandler();
 };
 
 var onErrorUpload = function () {
@@ -104,12 +102,5 @@ var onErrorUpload = function () {
 
 window.data.form.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  window.upload(new FormData(window.data.form), function (response) {
-    console.log(response);
-    if (!(response[0]['errorMessage'] === 'is not correct')) {
-      return onErrorUpload();
-    } else {
-      return onSuccessUpload();
-    }
-  });
+  window.upload(new FormData(window.data.form));
 });

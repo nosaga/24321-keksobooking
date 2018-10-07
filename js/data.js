@@ -7,11 +7,13 @@
   var adsDialog = document.querySelector('.map');
   var formFields = document.querySelectorAll('fieldset');
   var mapPinMain = document.querySelector('.map__pin--main');
+  var mapOverlay = document.querySelector('.map__overlay');
   var formAddress = form.elements.address;
   var mapPins = adsDialog.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin')
     .content
     .querySelector('.map__pin');
+  var successBlock = document.querySelector('#success');
   var successMessage = document.querySelector('#success')
     .content
     .querySelector('.success');
@@ -58,6 +60,8 @@
   var pinWidth = 50;
   var mainPinHeight = 87;
   var mainPinWidth = 65;
+  var MAIN_PIN_COORDS_X = 570;
+  var MAIN_PIN_COORDS_Y = 375;
   var ESC_KEYCODE = 27;
   window.data = {
     main: main,
@@ -85,9 +89,13 @@
     mainPinHeight: mainPinHeight,
     mainPinWidth: mainPinWidth,
     ESC_KEYCODE: ESC_KEYCODE,
+    MAIN_PIN_COORDS_X: MAIN_PIN_COORDS_X,
+    MAIN_PIN_COORDS_Y: MAIN_PIN_COORDS_Y,
     successMessage: successMessage,
     errorMessage: errorMessage,
     closeButton: closeButton,
     formReset: formReset,
+    successBlock: successBlock,
+    mapOverlay: mapOverlay
   };
 })();
