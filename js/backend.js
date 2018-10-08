@@ -47,13 +47,18 @@ window.upload = function (data, onSuccess, onBadData) {
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function () {
-    if (xhr.status === 200) {
-      onSuccess(onSuccessUpload());
-    } else {
-      onBadData(onErrorUpload());
-    }
+    onSuccess(xhr);
   });
 
+  xhr.addEventListener('error', function () {
+    onBadData('Произошла ошибка соединения');
+  });
+
+  xhr.addEventListener('timeout', function () {
+    onBadData('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+  });
+
+  xhr.timeout = 10000;
   xhr.open('POST', URL);
   xhr.send(data);
 };
@@ -102,5 +107,11 @@ var onErrorUpload = function () {
 
 window.data.form.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  window.upload(new FormData(window.data.form));
+  window.upload(new FormData(window.data.form), function (xhr) {
+    if (xhr.status === 200) {
+      onSuccessUpload();
+    } else {
+      onErrorUpload();
+    }
+  });
 });
