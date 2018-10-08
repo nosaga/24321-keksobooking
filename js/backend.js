@@ -22,10 +22,10 @@ window.load = function (url, onLoad, onError) {
 
   xhr.open('GET', url);
   xhr.send();
-}
+};
 
 var onError = function (message) {
-  console.log(message);
+  return message;
 };
 
 var onLoad = function (data) {

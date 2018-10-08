@@ -25,6 +25,7 @@
       for (var i = 0; i < data.mapPins.children.length; i++) {
         if (data.mapPins.children[i].hasAttribute('data-index')) {
           data.mapPins.removeChild(data.mapPins.children[i]);
+          i--;
         }
       }
     },
