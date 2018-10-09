@@ -8,7 +8,7 @@
     return items.sort(compareRandom);
   };
   var data = window.data;
-  window.card = {
+  window.render = {
     renderAd: function (ad) {
       var adElement = data.adsTemplate.cloneNode(true);
       adElement.querySelector('.popup__close').setAttribute('tabindex', '0');
@@ -44,4 +44,3 @@
     }
   };
 })();
-

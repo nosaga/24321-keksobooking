@@ -2,7 +2,7 @@
 
 (function () {
   var data = window.data;
-  var card = window.card;
+  var card = window.render;
   window.pin = {
     renderPins: function (i) {
       var pinElement = data.mapPinTemplate.cloneNode(true);

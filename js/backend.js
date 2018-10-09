@@ -29,8 +29,11 @@ var onError = function (message) {
 };
 
 var onLoad = function (data) {
-  window.card.ads = data;
-  for (var i = 0; i < data.length; i++) {
+  window.render.ads = data;
+  window.getSimilar(window.render.ads);
+  window.getSimilarType(window.render.ads);
+  window.updateCard();
+  for (var i = 0; i < window.render.ads.length; i++) {
     window.pin.renderPins(i);
   }
 };
