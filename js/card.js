@@ -1,60 +1,14 @@
 'use strict';
 
 (function () {
-  var getRandom = function (items, unique) {
-    var randomIndex = Math.floor(Math.random() * items.length);
-    if (unique) {
-      return items.splice(randomIndex, 1);
-    } else {
-      return items[randomIndex];
-    }
-  };
-
-  var getRandomNumber = function (max, min) {
-    var randomNumber = min + Math.random() * (max + 1 - min);
-    randomNumber = Math.floor(randomNumber);
-    return randomNumber;
-  };
-
   var compareRandom = function () {
     return Math.random() - 0.5;
   };
-
   var getSortedItem = function (items) {
     return items.sort(compareRandom);
   };
   var data = window.data;
   window.card = {
-    generateAds: function () {
-      var ad = [];
-      for (var i = 0; i < 8; i++) {
-        ad.push(
-            {
-              author: {
-                avatar: 'img/avatars/user' + getRandom(data.srcItems, true) + '.png',
-              },
-              offer: {
-                title: getRandom(data.titleItmes),
-                address: '',
-                price: getRandomNumber(1000, 1000000),
-                type: data.typeItems[getRandom(data.types)],
-                rooms: getRandomNumber(0, 5),
-                guests: getRandomNumber(0, 5),
-                checkin: getRandom(data.checkinItems),
-                checkout: getRandom(data.checkoutItems),
-                features: getRandom(data.featuresItems),
-                description: '',
-                photos: getSortedItem(data.photosItems),
-              },
-              location: {
-                x: getRandomNumber(300, 800) - data.pinWidth / 2,
-                y: getRandomNumber(130, 630) - data.pinWidth
-              }
-            }
-        );
-      }
-      return ad;
-    },
     renderAd: function (ad) {
       var adElement = data.adsTemplate.cloneNode(true);
       adElement.querySelector('.popup__close').setAttribute('tabindex', '0');
@@ -89,6 +43,5 @@
       }
     }
   };
-
-  window.card.ads = window.card.generateAds();
 })();
+

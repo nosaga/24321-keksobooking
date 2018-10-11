@@ -20,7 +20,7 @@
         }
         var target = evt.target;
         target.classList.add('map__pin—active');
-        window.showAds(target.closest('button').getAttribute('data-index'));
+        window.map.showAds(target.closest('button').getAttribute('data-index'));
       }
     },
     setPins: function () {
@@ -35,6 +35,9 @@
       var y = Math.floor(data.mapPinMain.offsetTop + data.mainPinHeight);
       data.formAddress.value = x + ', ' + y;
       data.formAddress.setAttribute('readonly', '');
+    },
+    setMainPinCoords: function () {
+      data.mapPinMain.style = 'left:' + data.MAIN_PIN_COORDS_X + 'px;' + 'top:' + data.MAIN_PIN_COORDS_Y + 'px';
     }
   };
 })();
