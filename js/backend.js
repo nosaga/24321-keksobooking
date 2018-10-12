@@ -25,12 +25,10 @@
     return message;
   };
   var onLoad = function (data) {
-    window.card.ads = data;
+    window.render.ads = data;
     for (var i = 0; i < data.length; i++) {
       window.pin.renderPins(i);
     }
   };
   load('https://js.dump.academy/keksobooking/data', onLoad, onError);
 })();
-
-/* form upload*/
