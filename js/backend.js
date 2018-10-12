@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -10,29 +11,22 @@
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
-
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
-
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-
     xhr.timeout = 10000;
-
     xhr.open('GET', url);
     xhr.send();
   };
-
   var onError = function (message) {
     return message;
   };
-
   var onLoad = function (data) {
-    window.render.ads = data;
-    window.updateCard();
-    for (var i = 0; i < window.render.ads.length; i++) {
+    window.card.ads = data;
+    for (var i = 0; i < data.length; i++) {
       window.pin.renderPins(i);
     }
   };
@@ -40,5 +34,3 @@
 })();
 
 /* form upload*/
-
-
