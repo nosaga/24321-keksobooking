@@ -26,9 +26,7 @@
   };
   var onLoad = function (data) {
     window.render.ads = data;
-    for (var i = 0; i < data.length; i++) {
-      window.pin.renderPins(i);
-    }
+    window.render.filteredAds = data;
   };
   load('https://js.dump.academy/keksobooking/data', onLoad, onError);
 })();

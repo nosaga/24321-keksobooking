@@ -5,11 +5,12 @@
   var card = window.render;
   window.pin = {
     renderPins: function (i) {
+      var pin = card.filteredAds[i];
       var pinElement = data.mapPinTemplate.cloneNode(true);
-      pinElement.style = 'left:' + card.ads[i].location.x + 'px;' + 'top:' + card.ads[i].location.y + 'px;';
+      pinElement.style = 'left:' + pin.location.x + 'px;' + 'top:' + pin.location.y + 'px;';
       pinElement.setAttribute('data-index', i);
-      pinElement.querySelector('img').src = card.ads[i].author.avatar;
-      pinElement.querySelector('img').alt = card.ads[i].offer.title;
+      pinElement.querySelector('img').src = pin.author.avatar;
+      pinElement.querySelector('img').alt = pin.offer.title;
       pinElement.addEventListener('click', __handleClick);
       return pinElement;
 
@@ -25,7 +26,8 @@
     },
     setPins: function () {
       var fragmentPins = document.createDocumentFragment();
-      for (var i = 0; i < card.ads.length; i++) {
+      window.updateCard();
+      for (var i = 0; i < window.render.filteredAds.length; i++) {
         fragmentPins.appendChild(window.pin.renderPins(i));
       }
       data.mapPins.appendChild(fragmentPins);

@@ -39,7 +39,7 @@
       pin.setPinCoords();
     },
     showAds: function (index) {
-      var ad = window.render.renderAd(window.render.ads[index]);
+      var ad = window.render.renderAd(window.render.filteredAds[index]);
       var previousAd = document.querySelector('.map__card');
       window.map.checkAd(previousAd, ad);
     },
