@@ -1,59 +1,64 @@
 'use strict';
-var filters = document.querySelector('form');
-var houseType = filters.elements.namedItem('housing-type');
-var housePrice = filters.elements.namedItem('housing-price');
-
-houseType.addEventListener('change', function () {
-  var target = event.target;
-  houseType.value = target.value;
-  console.log(houseType.value);
-  window.updateCard(houseType.value);
-});
-
-housePrice.addEventListener('change', function () {
-  var target = event.target;
-  housePrice.value = target.value;
-  console.log(housePrice.value);
-  window.updateCard(housePrice.value);
-});
-
-
 (function () {
+  var filters = document.querySelector('form');
+  var houseType = filters.elements.namedItem('housing-type');
+  var housePrice = filters.elements.namedItem('housing-price');
+
+  var typeValue = 'any';
+  var priceValue = 'any';
+
+  var pricing = {
+    low: 10000,
+    middle: 50000,
+    high: 50000
+  };
   var render = window.render;
-  window.updateCard = function (typeValue, typePrice) {
-    typeValue = houseType.value;
-    typePrice = housePrice.value;
-    if (typeValue === 'any' && typePrice === 'any') {
+  window.updateCard = function () {
+    if (typeValue === 'any' && priceValue === 'any') {
       render.filteredAds = render.ads;
     } else {
-      var sameTypesAndPrice = render.ads.filter(function (ad) {
-        return ad.offer.type === typeValue && ad.offer.price < 10000 ||
-          ad.offer.price > 50000 ||
-          ad.offer.price >= 10000 && ad.offer.price <= 50000;
-      });
       var sameTypes = render.ads.filter(function (ad) {
         return ad.offer.type === typeValue;
-        console.log(sameTypes);
       });
+
       var samePrice = render.ads.filter(function (ad) {
-        if (typePrice === 'low') {
-          return ad.offer.price < 10000;
-        } else if (typePrice === 'high') {
-          return ad.offer.price > 50000;
+        if (priceValue === 'high') {
+          return ad.offer.price > pricing[priceValue];
         } else {
-          return ad.offer.price >= 10000 && ad.offer.price <= 50000;
+          return ad.offer.price < pricing[priceValue];
         }
       });
-      var filterAds = sameTypesAndPrice;
-      filterAds = filterAds.concat(sameTypes);
-      filterAds = filterAds.concat(samePrice);
-      console.log(filterAds);
-      var uniqueAds =
-      filterAds.filter(function (ad, i) {
-        return filterAds.indexOf(ad) === i;
+
+      var filterAds = [];
+      filterAds = sameTypes.filter(function (ad) {
+        return samePrice.filter(function (adCompare) {
+          return ad.offer.type === adCompare.offer.type;
+        }).length === 0;
       });
+
+      console.log(filterAds);
+
+      var uniqueAds =
+        filterAds.filter(function (ad, i) {
+          return filterAds.indexOf(ad) === i;
+        });
+      console.log(uniqueAds)
       render.filteredAds = uniqueAds;
-      return render.filteredAds;
+      //удалить все пины не в этой функции
+      // вызвать setPins
     }
   };
+
+  houseType.addEventListener('change', function (evt) {
+    var target = evt.target;
+    console.log(evt.target);
+    typeValue = target.value;
+    window.updateCard();
+  });
+
+  housePrice.addEventListener('change', function (evt) {
+    var target = evt.target;
+    priceValue = target.value;
+    window.updateCard();
+  });
 })();
