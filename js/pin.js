@@ -26,7 +26,6 @@
     },
     setPins: function () {
       var fragmentPins = document.createDocumentFragment();
-      window.updateCard();
       for (var i = 0; i < window.render.filteredAds.length; i++) {
         fragmentPins.appendChild(window.pin.renderPins(i));
       }
