@@ -28,7 +28,7 @@
         comparePrice(ad.offer.price) &&
         compareRooms(ad.offer.rooms) &&
         compareGuests(ad.offer.guests) &&
-        checkWifi(ad.offer.features[0])
+        checkWifi(ad.offer.features['wifi'])
       );
     });
 
