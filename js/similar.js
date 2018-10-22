@@ -5,11 +5,15 @@
   var housePrice = filters.elements.namedItem('housing-price');
   var houseRooms = filters.elements.namedItem('housing-rooms');
   var houseGuests = filters.elements.namedItem('housing-guests');
+  var houseFeatures = filters.elements.namedItem('features');
+  var houseWifi = houseFeatures[0];
+
 
   var typeValue = 'any';
   var priceValue = 'any';
   var roomValue = 'any';
   var guestsValue = 'any';
+  var wifiValue = 'wifi';
 
   var pricing = {
     low: 10000,
@@ -23,7 +27,8 @@
         compareType(ad.offer.type) &&
         comparePrice(ad.offer.price) &&
         compareRooms(ad.offer.rooms) &&
-        compareGuests(ad.offer.guests)
+        compareGuests(ad.offer.guests) &&
+        checkWifi(ad.offer.features[0])
       );
     });
 
@@ -59,6 +64,15 @@
         return price < pricing[priceValue];
       }
     }
+
+    function checkWifi(wifi) {
+      for (var i = 0; i < houseFeatures; i++) {
+        if (houseFeatures[i] === wifi) {
+          wifi = wifiValue;
+        }
+        return wifi;
+      }
+    }
     render.filteredAds = filtered;
     window.map.checkCard();
     window.map.removePins();
@@ -86,6 +100,13 @@
   houseGuests.addEventListener('change', function (evt) {
     var target = evt.target;
     guestsValue = target.value;
+    window.updateCard();
+  });
+
+  houseWifi.addEventListener('change', function (evt) {
+    var target = evt.target;
+    wifiValue = target.value;
+    console.log(wifiValue);
     window.updateCard();
   });
 })();
