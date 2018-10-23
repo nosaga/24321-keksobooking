@@ -5,15 +5,13 @@
   var housePrice = filters.elements.namedItem('housing-price');
   var houseRooms = filters.elements.namedItem('housing-rooms');
   var houseGuests = filters.elements.namedItem('housing-guests');
-  var houseFeatures = filters.elements.namedItem('features');
-  var houseWifi = houseFeatures[0];
-
+  var houseFeatures = document.querySelector('#housing-features');
 
   var typeValue = 'any';
   var priceValue = 'any';
   var roomValue = 'any';
   var guestsValue = 'any';
-  var wifiValue = 'wifi';
+  var featuresValue = '';
 
   var pricing = {
     low: 10000,
@@ -28,9 +26,11 @@
         comparePrice(ad.offer.price) &&
         compareRooms(ad.offer.rooms) &&
         compareGuests(ad.offer.guests) &&
-        checkWifi(ad.offer.features['wifi'])
+        checkFeatures(ad.offer.features)
       );
     });
+
+    console.log(filtered);
 
     function compareType(type) {
       if (typeValue === 'any') {
@@ -65,14 +65,31 @@
       }
     }
 
-    function checkWifi(wifi) {
-      for (var i = 0; i < houseFeatures; i++) {
-        if (houseFeatures[i] === wifi) {
-          wifi = wifiValue;
+    var checkedItem = function () {
+      for (var i = 0; i < houseFeatures.children.length; i++) {
+        if (houseFeatures.children[i].checked) {
+          return true;
         }
-        return wifi;
       }
+      return true;
+    };
+
+    var checked = checkedItem();
+    console.log(checked);
+
+    function checkFeatures(featuresItem) {
+      if (checked) {
+        return true;
+      }
+      var featureAvailable;
+      for (var i = 0; i < featuresItem.length; i++) {
+        if (featuresItem[i] === featuresValue) {
+          featureAvailable = featuresItem[i];
+        }
+      }
+      return featureAvailable;
     }
+
     render.filteredAds = filtered;
     window.map.checkCard();
     window.map.removePins();
@@ -103,10 +120,10 @@
     window.updateCard();
   });
 
-  houseWifi.addEventListener('change', function (evt) {
+  houseFeatures.addEventListener('change', function (evt) {
     var target = evt.target;
-    wifiValue = target.value;
-    console.log(wifiValue);
+    featuresValue = target.value;
+    console.log(featuresValue);
     window.updateCard();
   });
 })();
