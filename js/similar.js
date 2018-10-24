@@ -5,13 +5,23 @@
   var housePrice = filters.elements.namedItem('housing-price');
   var houseRooms = filters.elements.namedItem('housing-rooms');
   var houseGuests = filters.elements.namedItem('housing-guests');
-  var houseFeatures = document.querySelector('#housing-features');
+  var featuresWifi = document.querySelector('#filter-wifi');
+  var featuresParking = document.querySelector('#filter-parking');
+  var featuresDishwasher = document.querySelector('#filter-dishwasher');
+  var featuresWasher = document.querySelector('#filter-washer');
+  var featuresElevator = document.querySelector('#filter-elevator');
+  var featuresConditioner = document.querySelector('#filter-conditioner');
 
   var typeValue = 'any';
   var priceValue = 'any';
   var roomValue = 'any';
   var guestsValue = 'any';
-  var featuresValue = '';
+  var wifiValue = 'wifi';
+  var dishwasherValue = 'dishwasher';
+  var washerValue = 'washer';
+  var parkingValue = 'parking';
+  var elevatorValue = 'elevator';
+  var conditionerValue = 'conditioner';
 
   var pricing = {
     low: 10000,
@@ -26,7 +36,12 @@
         comparePrice(ad.offer.price) &&
         compareRooms(ad.offer.rooms) &&
         compareGuests(ad.offer.guests) &&
-        checkFeatures(ad.offer.features)
+        checkFeatures(ad.offer.features, featuresParking, parkingValue) &&
+        checkFeatures(ad.offer.features, featuresWifi, wifiValue) &&
+        checkFeatures(ad.offer.features, featuresDishwasher, dishwasherValue) &&
+        checkFeatures(ad.offer.features, featuresWasher, washerValue) &&
+        checkFeatures(ad.offer.features, featuresElevator, elevatorValue) &&
+        checkFeatures(ad.offer.features, featuresConditioner, conditionerValue)
       );
     });
 
@@ -65,26 +80,18 @@
       }
     }
 
-    var checkedItem = function () {
-      for (var i = 0; i < houseFeatures.children.length; i++) {
-        if (houseFeatures.children[i].checked) {
-          return true;
-        }
-      }
-      return true;
-    };
+    function checkFeatures(featuresItem, featuresChecked, featureValue) {
+      var featureAvailable;
 
-    var checked = checkedItem();
-    console.log(checked);
-
-    function checkFeatures(featuresItem) {
-      if (checked) {
+      if (!featuresChecked.checked) {
         return true;
       }
-      var featureAvailable;
-      for (var i = 0; i < featuresItem.length; i++) {
-        if (featuresItem[i] === featuresValue) {
-          featureAvailable = featuresItem[i];
+
+      if (featuresChecked.checked) {
+        for (var i = 0; i < featuresItem.length; i++) {
+          if (featuresItem[i] === featureValue) {
+            featureAvailable = featuresItem[i];
+          }
         }
       }
       return featureAvailable;
@@ -120,10 +127,40 @@
     window.updateCard();
   });
 
-  houseFeatures.addEventListener('change', function (evt) {
+  featuresWifi.addEventListener('change', function (evt) {
     var target = evt.target;
-    featuresValue = target.value;
-    console.log(featuresValue);
+    wifiValue = target.value;
+    window.updateCard();
+  });
+
+  featuresParking.addEventListener('change', function (evt) {
+    var target = evt.target;
+    parkingValue = target.value;
+    window.updateCard();
+  });
+
+  featuresDishwasher.addEventListener('change', function (evt) {
+    var target = evt.target;
+    dishwasherValue = target.value;
+    console.log(dishwasherValue);
+    window.updateCard();
+  });
+
+  featuresWasher.addEventListener('change', function (evt) {
+    var target = evt.target;
+    washerValue = target.value;
+    window.updateCard();
+  });
+
+  featuresElevator.addEventListener('change', function (evt) {
+    var target = evt.target;
+    elevatorValue = target.value;
+    window.updateCard();
+  });
+
+  featuresConditioner.addEventListener('change', function (evt) {
+    var target = evt.target;
+    conditionerValue = target.value;
     window.updateCard();
   });
 })();
