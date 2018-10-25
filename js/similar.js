@@ -46,8 +46,6 @@
       );
     });
 
-    console.log(filtered);
-
     function compareType(type) {
       if (typeValue === 'any') {
         return true;
