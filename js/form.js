@@ -9,6 +9,13 @@
   var checkin = data.form.elements.timein;
   var checkout = data.form.elements.timeout;
 
+  var pricing = {
+    flat: 1000,
+    house: 5000,
+    palace: 10000,
+    bungalo: 0
+  };
+
   for (var l = 0; l < data.formFields.length; l++) {
     data.formFields[l].setAttribute('disabled', 'disabled');
   }
@@ -31,16 +38,14 @@
   price.addEventListener('change', function (e) {
     var target = e.target;
     var typeValue = type.value;
-    var priceValue = parseInt(target.value, 10);
 
-
-    if (typeValue === 'flat' && priceValue < 1000) {
+    if (typeValue < pricing.flat) {
       target.setCustomValidity('минимальная цена за ночь 1 000');
-    } else if (typeValue === 'house' && priceValue < 5000) {
+    } else if (typeValue < pricing.house) {
       target.setCustomValidity('минимальная цена за ночь 5 000');
-    } else if (typeValue === 'palace' && priceValue < 10000) {
+    } else if (typeValue < pricing.palace) {
       target.setCustomValidity('минимальная цена за ночь 10 000');
-    } else if (typeValue === 'bungalo' && priceValue < 0) {
+    } else if (typeValue < pricing.bungalo) {
       target.setCustomValidity('минимальная цена за ночь 0');
     } else {
       target.setCustomValidity('');
@@ -51,11 +56,11 @@
     var target = evt.target;
     var typeValue = target.value;
     if (typeValue === 'flat') {
-      price.placeholder = '1000';
+      price.placeholder = pricing.flat;
     } else if (typeValue === 'house') {
-      price.placeholder = '5000';
+      price.placeholder = pricing.house;
     } else if (typeValue === 'palace') {
-      price.placeholder = '10 000';
+      price.placeholder = pricing.palace;
     } else {
       price.placeholder = '0';
     }
@@ -64,24 +69,12 @@
   checkin.addEventListener('change', function (e) {
     var target = e.target;
     var checkinValue = target.value;
-    if (checkinValue === '12:00') {
-      checkout.value = '12:00';
-    } else if (checkinValue === '13:00') {
-      checkout.value = '13:00';
-    } else if (checkinValue === '14:00') {
-      checkout.value = '14:00';
-    }
+    checkout.value = checkinValue;
   });
 
   checkout.addEventListener('change', function (e) {
     var target = e.target;
     var checkoutValue = target.value;
-    if (checkoutValue === '12:00') {
-      checkin.value = '12:00';
-    } else if (checkoutValue === '13:00') {
-      checkin.value = '13:00';
-    } else if (checkoutValue === '14:00') {
-      checkin.value = '14:00';
-    }
+    checkin.value = checkoutValue;
   });
 })();

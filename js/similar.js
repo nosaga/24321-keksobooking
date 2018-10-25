@@ -5,6 +5,7 @@
   var housePrice = filters.elements.namedItem('housing-price');
   var houseRooms = filters.elements.namedItem('housing-rooms');
   var houseGuests = filters.elements.namedItem('housing-guests');
+  var featuresAll = document.querySelector('#housing-features');
   var featuresWifi = document.querySelector('#filter-wifi');
   var featuresParking = document.querySelector('#filter-parking');
   var featuresDishwasher = document.querySelector('#filter-dishwasher');
@@ -127,40 +128,26 @@
     window.updateCard();
   });
 
-  featuresWifi.addEventListener('change', function (evt) {
+  featuresAll.addEventListener('change', function (evt) {
     var target = evt.target;
-    wifiValue = target.value;
-    window.updateCard();
-  });
-
-  featuresParking.addEventListener('change', function (evt) {
-    var target = evt.target;
-    parkingValue = target.value;
-    window.updateCard();
-  });
-
-  featuresDishwasher.addEventListener('change', function (evt) {
-    var target = evt.target;
-    dishwasherValue = target.value;
-    console.log(dishwasherValue);
-    window.updateCard();
-  });
-
-  featuresWasher.addEventListener('change', function (evt) {
-    var target = evt.target;
-    washerValue = target.value;
-    window.updateCard();
-  });
-
-  featuresElevator.addEventListener('change', function (evt) {
-    var target = evt.target;
-    elevatorValue = target.value;
-    window.updateCard();
-  });
-
-  featuresConditioner.addEventListener('change', function (evt) {
-    var target = evt.target;
-    conditionerValue = target.value;
-    window.updateCard();
+    if (target.value === 'wifi') {
+      wifiValue = target.value;
+      window.updateCard();
+    } else if (target.value === 'dishwasher') {
+      dishwasherValue = target.value;
+      window.updateCard();
+    } else if (target.value === 'washer') {
+      washerValue = target.value;
+      window.updateCard();
+    } else if (target.value === 'parking') {
+      parkingValue = target.value;
+      window.updateCard();
+    } else if (target.value === 'elevator') {
+      elevatorValue = target.value;
+      window.updateCard();
+    } else if (target.value === 'conditioner') {
+      conditionerValue = target.value;
+      window.updateCard();
+    }
   });
 })();
