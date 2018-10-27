@@ -15,7 +15,7 @@
       adElement.querySelector('.popup__title').innerHTML = ad.offer.title;
       adElement.querySelector('.popup__text--address').innerHTML = ad.offer.address;
       adElement.querySelector('.popup__text--price').innerHTML = ad.offer.price;
-      adElement.querySelector('.popup__type').innerHTML = [window.data.typeItems[ad.offer.type]];
+      adElement.querySelector('.popup__type').innerHTML = window.data.typeItems[ad.offer.type];
       adElement.querySelector('.popup__text--capacity').innerHTML = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
       adElement.querySelector('.popup__text--time').innerHTML = 'Заезд после ' + ad.offer.checkin + ' выезд до ' + ad.offer.checkout;
       adElement.querySelector('.popup__features').innerHTML = ad.offer.features;

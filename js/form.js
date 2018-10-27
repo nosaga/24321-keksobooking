@@ -38,15 +38,9 @@
   price.addEventListener('change', function (e) {
     var target = e.target;
     var typeValue = type.value;
-
-    if (typeValue < pricing.flat) {
-      target.setCustomValidity('минимальная цена за ночь 1 000');
-    } else if (typeValue < pricing.house) {
-      target.setCustomValidity('минимальная цена за ночь 5 000');
-    } else if (typeValue < pricing.palace) {
-      target.setCustomValidity('минимальная цена за ночь 10 000');
-    } else if (typeValue < pricing.bungalo) {
-      target.setCustomValidity('минимальная цена за ночь 0');
+    var priceValue = target.value;
+    if (priceValue < pricing[typeValue]) {
+      target.setCustomValidity('минимальная цена за ночь ' + pricing[typeValue]);
     } else {
       target.setCustomValidity('');
     }
@@ -55,15 +49,7 @@
   type.addEventListener('change', function (evt) {
     var target = evt.target;
     var typeValue = target.value;
-    if (typeValue === 'flat') {
-      price.placeholder = pricing.flat;
-    } else if (typeValue === 'house') {
-      price.placeholder = pricing.house;
-    } else if (typeValue === 'palace') {
-      price.placeholder = pricing.palace;
-    } else {
-      price.placeholder = '0';
-    }
+    price.placeholder = pricing[typeValue];
   });
 
   checkin.addEventListener('change', function (e) {
