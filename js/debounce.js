@@ -11,7 +11,7 @@
       if (lastTimeout) {
         window.clearTimeout(lastTimeout);
       }
-      lastTimeout = window.setTimeout(function() {
+      lastTimeout = window.setTimeout(function () {
         fun.apply(null, args);
       }, DEBOUNCE_INTERVAL);
     };

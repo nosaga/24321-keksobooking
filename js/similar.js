@@ -21,21 +21,21 @@
         return true;
       }
       return type === filter['housing-type'];
-    }
+    };
 
     var compareRooms = function (number) {
       if (filter['housing-rooms'] === 'any') {
         return true;
       }
       return number === parseInt(filter['housing-rooms'], 10);
-    }
+    };
 
     var compareGuests = function (guestNumber) {
       if (filter['housing-guests'] === 'any') {
         return true;
       }
       return guestNumber === parseInt(filter['housing-guests'], 10);
-    }
+    };
 
     var comparePrice = function (price) {
       if (filter['housing-price'] === 'any') {
@@ -47,7 +47,7 @@
       } else {
         return price < pricing[filter['housing-price']];
       }
-    }
+    };
 
     var checkFeatures = function (ad) {
       var available = true;
@@ -64,7 +64,7 @@
         available = true;
       }
       return available;
-    }
+    };
 
     var filtered = render.ads.filter(function (ad) {
       return (
