@@ -6,8 +6,8 @@
   var guests = data.form.elements.capacity;
   var price = data.form.elements.price;
   var type = data.form.elements.type;
-  var checkin = data.form.elements.timein;
-  var checkout = data.form.elements.timeout;
+  var time = document.querySelector('.ad-form__element--time');
+
 
   var pricing = {
     flat: 1000,
@@ -52,15 +52,13 @@
     price.placeholder = pricing[typeValue];
   });
 
-  checkin.addEventListener('change', function (e) {
+  time.addEventListener('change', function (e) {
+    var checkin = data.form.elements.timein;
+    var checkout = data.form.elements.timeout;
     var target = e.target;
-    var checkinValue = target.value;
-    checkout.value = checkinValue;
-  });
-
-  checkout.addEventListener('change', function (e) {
-    var target = e.target;
-    var checkoutValue = target.value;
-    checkin.value = checkoutValue;
+    if (target.value === checkin.value) {
+      checkout.value = checkin.value;
+    }
+    checkin.value = checkout.value;
   });
 })();
