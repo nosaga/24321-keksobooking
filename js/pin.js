@@ -31,14 +31,19 @@
       }
       data.mapPins.appendChild(fragmentPins);
     },
+    setSvg: function () {
+      var svg = document.querySelector('svg');
+      if (document.body.contains(document.querySelector('.map--faded')) === true) {
+        svg.style.transform = 'rotate(-20deg) scale(1)';
+      } else {
+        svg.style.transform = 'rotate(120deg) scale(0)';
+      }
+    },
     setPinCoords: function () {
       var x = Math.floor((data.mapPinMain.offsetLeft + data.mainPinWidth / 2));
       var y = Math.floor(data.mapPinMain.offsetTop + data.mainPinHeight);
       data.formAddress.value = x + ', ' + y;
       data.formAddress.setAttribute('readonly', '');
     },
-    setMainPinCoords: function () {
-      data.mapPinMain.style = 'left:' + data.MAIN_PIN_COORDS_X + 'px;' + 'top:' + data.MAIN_PIN_COORDS_Y + 'px';
-    }
   };
 })();

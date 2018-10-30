@@ -8,7 +8,8 @@
       window.map.checkClass();
       window.map.checkCard();
       window.map.removePins();
-      pin.setMainPinCoords();
+      pin.setPinCoords();
+      pin.setSvg();
       data.form.reset();
     },
     checkClass: function () {
@@ -17,7 +18,7 @@
       }
     },
     checkCard: function () {
-      if ((data.adsDialog.contains(document.querySelector('.map__card')))) {
+      if (data.adsDialog.contains(document.querySelector('.map__card'))) {
         document.querySelector('.map__card').classList.add('hidden');
       }
     },
@@ -37,6 +38,7 @@
       }
       pin.setPins();
       pin.setPinCoords();
+      pin.setSvg();
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);

@@ -96,6 +96,6 @@
     closeButton: closeButton,
     formReset: formReset,
     successBlock: successBlock,
-    mapOverlay: mapOverlay
+    mapOverlay: mapOverlay,
   };
 })();

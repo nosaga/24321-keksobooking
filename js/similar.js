@@ -1,91 +1,96 @@
 'use strict';
 (function () {
-  var filters = document.querySelector('form');
-  var houseType = filters.elements.namedItem('housing-type');
-  var housePrice = filters.elements.namedItem('housing-price');
-  var houseRooms = filters.elements.namedItem('housing-rooms');
-  var houseGuests = filters.elements.namedItem('housing-guests');
-
-  var typeValue = 'any';
-  var priceValue = 'any';
-  var roomValue = 'any';
-  var guestsValue = 'any';
-
+  var form = document.querySelector('form');
+  var featuresAll = document.querySelector('#housing-features');
+  var filter = {
+    'housing-type': 'any',
+    'housing-price': 'any',
+    'housing-rooms': 'any',
+    'housing-guests': 'any',
+  };
   var pricing = {
     low: 10000,
     middle: 50000,
     high: 50000
   };
   var render = window.render;
-  window.updateCard = function () {
+  window.updateCard = window.debounce(function () {
+
+    var compareType = function (type) {
+      if (filter['housing-type'] === 'any') {
+        return true;
+      }
+      return type === filter['housing-type'];
+    };
+
+    var compareRooms = function (number) {
+      if (filter['housing-rooms'] === 'any') {
+        return true;
+      }
+      return number === parseInt(filter['housing-rooms'], 10);
+    };
+
+    var compareGuests = function (guestNumber) {
+      if (filter['housing-guests'] === 'any') {
+        return true;
+      }
+      return guestNumber === parseInt(filter['housing-guests'], 10);
+    };
+
+    var comparePrice = function (price) {
+      if (filter['housing-price'] === 'any') {
+        return true;
+      }
+
+      if (filter['housing-price'] === 'high') {
+        return price > pricing[filter['housing-price']];
+      } else {
+        return price < pricing[filter['housing-price']];
+      }
+    };
+
+    var checkFeatures = function (ad) {
+      var available = true;
+      var inputs = featuresAll.querySelectorAll('input');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].checked) {
+          continue;
+        }
+
+        if (ad.offer.features.indexOf(inputs[i].value) === -1) {
+          available = false;
+          break;
+        }
+        available = true;
+      }
+      return available;
+    };
+
     var filtered = render.ads.filter(function (ad) {
       return (
         compareType(ad.offer.type) &&
         comparePrice(ad.offer.price) &&
         compareRooms(ad.offer.rooms) &&
-        compareGuests(ad.offer.guests)
+        compareGuests(ad.offer.guests) &&
+        checkFeatures(ad)
       );
     });
 
-    function compareType(type) {
-      if (typeValue === 'any') {
-        return true;
-      }
-      return type === typeValue;
-    }
-
-    function compareRooms(number) {
-      if (roomValue === 'any') {
-        return true;
-      }
-      return number === parseInt(roomValue, 10);
-    }
-
-    function compareGuests(guestNumber) {
-      if (guestsValue === 'any') {
-        return true;
-      }
-      return guestNumber === parseInt(guestsValue, 10);
-    }
-
-    function comparePrice(price) {
-      if (priceValue === 'any') {
-        return true;
-      }
-
-      if (priceValue === 'high') {
-        return price > pricing[priceValue];
-      } else {
-        return price < pricing[priceValue];
-      }
-    }
     render.filteredAds = filtered;
     window.map.checkCard();
     window.map.removePins();
     window.pin.setPins();
+  });
+
+  var onFilter = function (evt) {
+    var target = evt.target;
+    if (!filter[target.name]) {
+      return;
+    }
+    filter[evt.target.name] = target.value;
+    window.updateCard();
   };
 
-  houseType.addEventListener('change', function (evt) {
-    var target = evt.target;
-    typeValue = target.value;
-    window.updateCard();
-  });
-
-  housePrice.addEventListener('change', function (evt) {
-    var target = evt.target;
-    priceValue = target.value;
-    window.updateCard();
-  });
-
-  houseRooms.addEventListener('change', function (evt) {
-    var target = evt.target;
-    roomValue = target.value;
-    window.updateCard();
-  });
-
-  houseGuests.addEventListener('change', function (evt) {
-    var target = evt.target;
-    guestsValue = target.value;
-    window.updateCard();
-  });
+  form.addEventListener('change', onFilter);
+  featuresAll.addEventListener('change', window.updateCard);
 })();
