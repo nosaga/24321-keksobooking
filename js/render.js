@@ -40,9 +40,8 @@
       } else {
         adElement.querySelector('.popup__text--time').textContent = '';
       }
-
       if (checkField(ad.offer.features)) {
-        for (var i = 0; i < ad.offer.features.length; i++) {
+        for (var j = 0; j < ad.offer.features.length; j++) {
           checkFeatures(ad.offer.features.indexOf('wifi'), adElement.querySelector('.popup__feature--wifi'));
           checkFeatures(ad.offer.features.indexOf('dishwasher'), adElement.querySelector('.popup__feature--dishwasher'));
           checkFeatures(ad.offer.features.indexOf('parking'), adElement.querySelector('.popup__feature--parking'));
@@ -66,7 +65,7 @@
       return adElement;
       function __closeCard() {
         adElement.classList.add('hidden');
-        document.removeEventListener('keydown', __closeEscPress)
+        document.removeEventListener('keydown', __closeEscPress);
       }
       function __closeEscPress(evt) {
         if (evt.keyCode === data.ESC_KEYCODE) {
