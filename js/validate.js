@@ -1,6 +1,6 @@
 'use strict';
 var checkString = function (objectParam, elem, adKey) {
-  if (objectParam === ' ' || typeof (objectParam) !== 'string') {
+  if (objectParam === '' || typeof (objectParam) !== 'string') {
     elem.remove();
   } else {
     elem.innderHTML = adKey;
@@ -41,7 +41,7 @@ var checkArray = function (objectParam, elem, adKey) {
 
 /* exported */
 window.checkData = function (obj, elem) {
-  checkString(obj.offer.title, elem.querySelector('.popup__title'), obj.offer.title);
+  /*checkString(obj.offer.title, elem.querySelector('.popup__title'), obj.offer.title);*/
   checkString(obj.offer.address, elem.querySelector('.popup__text--address'), obj.offer.objdress);
   checkString(obj.offer.type, elem.querySelector('.popup__type'), obj.offer.type);
   checkNumber(obj.offer.price, elem.querySelector('.popup__text--price'), obj.offer.price);

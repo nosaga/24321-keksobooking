@@ -46,7 +46,7 @@
     'Неуютное бунгало по колено в воде'
   ];
   var types = ['palace', 'flat', 'house', 'bungalo'];
-  var typeItems = {
+  var TypeItems = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
@@ -79,7 +79,7 @@
     srcItems: srcItems,
     titleItmes: titleItmes,
     types: types,
-    typeItems: typeItems,
+    TypeItems: TypeItems,
     checkinItems: checkinItems,
     checkoutItems: checkoutItems,
     featuresItems: featuresItems,

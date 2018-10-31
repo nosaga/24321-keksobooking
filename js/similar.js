@@ -2,13 +2,13 @@
 (function () {
   var form = document.querySelector('form');
   var featuresAll = document.querySelector('#housing-features');
-  var filter = {
+  var Filter = {
     'housing-type': 'any',
     'housing-price': 'any',
     'housing-rooms': 'any',
     'housing-guests': 'any',
   };
-  var pricing = {
+  var Pricing = {
     low: 10000,
     middle: 50000,
     high: 50000
@@ -17,35 +17,35 @@
   window.updateCard = window.debounce(function () {
 
     var compareType = function (type) {
-      if (filter['housing-type'] === 'any') {
+      if (Filter['housing-type'] === 'any') {
         return true;
       }
-      return type === filter['housing-type'];
+      return type === Filter['housing-type'];
     };
 
     var compareRooms = function (number) {
-      if (filter['housing-rooms'] === 'any') {
+      if (Filter['housing-rooms'] === 'any') {
         return true;
       }
-      return number === parseInt(filter['housing-rooms'], 10);
+      return number === parseInt(Filter['housing-rooms'], 10);
     };
 
     var compareGuests = function (guestNumber) {
-      if (filter['housing-guests'] === 'any') {
+      if (Filter['housing-guests'] === 'any') {
         return true;
       }
-      return guestNumber === parseInt(filter['housing-guests'], 10);
+      return guestNumber === parseInt(Filter['housing-guests'], 10);
     };
 
     var comparePrice = function (price) {
-      if (filter['housing-price'] === 'any') {
+      if (Filter['housing-price'] === 'any') {
         return true;
       }
 
-      if (filter['housing-price'] === 'high') {
-        return price > pricing[filter['housing-price']];
+      if (Filter['housing-price'] === 'high') {
+        return price > Pricing[Filter['housing-price']];
       } else {
-        return price < pricing[filter['housing-price']];
+        return price < Pricing[Filter['housing-price']];
       }
     };
 
@@ -84,10 +84,10 @@
 
   var onFilter = function (evt) {
     var target = evt.target;
-    if (!filter[target.name]) {
+    if (!Filter[target.name]) {
       return;
     }
-    filter[evt.target.name] = target.value;
+    Filter[evt.target.name] = target.value;
     window.updateCard();
   };
 
