@@ -3,7 +3,7 @@
 (function () {
   var DIALOG_TOP = 130;
   var DIALOG_HEIGHT = 630;
-  var data = window.data;
+  var data = window.Data;
 
   data.mapPinMain.addEventListener('mousedown', function (e) {
     e.preventDefault();

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.data;
+  var data = window.Data;
   var rooms = data.form.elements.rooms;
   var guests = data.form.elements.capacity;
   var price = data.form.elements.price;

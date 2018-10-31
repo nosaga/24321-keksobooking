@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.data;
+  var data = window.Data;
   var pin = window.pin;
   window.map = {
     mapDeactivationHandler: function () {

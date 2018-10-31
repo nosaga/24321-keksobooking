@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.data;
+  var data = window.Data;
   document.addEventListener('DOMContentLoaded', window.pin.setPinCoords);
   data.mapPinMain.addEventListener('mouseup', window.map.mapActivationHandler);
   data.photosTile.children[0].remove();

@@ -26,22 +26,22 @@
   };
 
   function hideSuccessMessage() {
-    window.data.successMessage.classList.add('hidden');
+    window.Data.successMessage.classList.add('hidden');
     document.removeEventListener('keydown', escPress);
   }
 
   function hideErrorMessage() {
-    window.data.errorMessage.classList.add('hidden');
+    window.Data.errorMessage.classList.add('hidden');
   }
 
   function escPress(evt) {
-    if (evt.keyCode === window.data.ESC_KEYCODE) {
+    if (evt.keyCode === window.Data.ESC_KEYCODE) {
       hideSuccessMessage();
     }
   }
 
   var showSuccessMessage = function () {
-    window.data.main.appendChild(window.data.successMessage);
+    window.Data.main.appendChild(window.Data.successMessage);
     document.addEventListener('keydown', escPress);
     document.addEventListener('click', function () {
       hideSuccessMessage();
@@ -49,8 +49,8 @@
   };
 
   var showErrorMessage = function () {
-    window.data.main.appendChild(window.data.errorMessage);
-    window.data.closeButton.addEventListener('click', function () {
+    window.Data.main.appendChild(window.Data.errorMessage);
+    window.Data.closeButton.addEventListener('click', function () {
       hideErrorMessage();
     });
     document.addEventListener('click', function () {
@@ -78,9 +78,9 @@
     return response;
   };
 
-  window.data.form.addEventListener('submit', function (evt) {
+  window.Data.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    upload(new FormData(window.data.form), onLoad, onError);
+    upload(new FormData(window.Data.form), onLoad, onError);
   });
 })();
 
