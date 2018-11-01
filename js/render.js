@@ -41,14 +41,12 @@
         adElement.querySelector('.popup__text--time').textContent = '';
       }
       if (checkField(ad.offer.features)) {
-        for (var j = 0; j < ad.offer.features.length; j++) {
-          checkFeatures(ad.offer.features.indexOf('wifi'), adElement.querySelector('.popup__feature--wifi'));
-          checkFeatures(ad.offer.features.indexOf('dishwasher'), adElement.querySelector('.popup__feature--dishwasher'));
-          checkFeatures(ad.offer.features.indexOf('parking'), adElement.querySelector('.popup__feature--parking'));
-          checkFeatures(ad.offer.features.indexOf('washer'), adElement.querySelector('.popup__feature--washer'));
-          checkFeatures(ad.offer.features.indexOf('elevator'), adElement.querySelector('.popup__feature--elevator'));
-          checkFeatures(ad.offer.features.indexOf('conditioner'), adElement.querySelector('.popup__feature--conditioner'));
-        }
+        checkFeatures(ad.offer.features.indexOf('wifi'), adElement.querySelector('.popup__feature--wifi'));
+        checkFeatures(ad.offer.features.indexOf('dishwasher'), adElement.querySelector('.popup__feature--dishwasher'));
+        checkFeatures(ad.offer.features.indexOf('parking'), adElement.querySelector('.popup__feature--parking'));
+        checkFeatures(ad.offer.features.indexOf('washer'), adElement.querySelector('.popup__feature--washer'));
+        checkFeatures(ad.offer.features.indexOf('elevator'), adElement.querySelector('.popup__feature--elevator'));
+        checkFeatures(ad.offer.features.indexOf('conditioner'), adElement.querySelector('.popup__feature--conditioner'));
       }
       adElement.querySelector('.popup__description').textContent = checkField(ad.offer.description);
       adElement.querySelector('.popup__avatar').src = checkField(ad.author.avatar);
