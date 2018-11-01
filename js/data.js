@@ -46,7 +46,7 @@
     'Неуютное бунгало по колено в воде'
   ];
   var types = ['palace', 'flat', 'house', 'bungalo'];
-  var typeItems = {
+  var TypeItems = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
@@ -63,7 +63,7 @@
   var MAIN_PIN_COORDS_X = 570;
   var MAIN_PIN_COORDS_Y = 375;
   var ESC_KEYCODE = 27;
-  window.data = {
+  window.Data = {
     main: main,
     form: form,
     adsDialog: adsDialog,
@@ -79,7 +79,7 @@
     srcItems: srcItems,
     titleItmes: titleItmes,
     types: types,
-    typeItems: typeItems,
+    TypeItems: TypeItems,
     checkinItems: checkinItems,
     checkoutItems: checkoutItems,
     featuresItems: featuresItems,
