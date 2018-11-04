@@ -15,12 +15,9 @@
     moveAt(e, shiftX, shiftY);
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
-      if (!setBounds(moveEvt)) {
-        return false;
-      }
-      moveAt(moveEvt, shiftX, shiftY);
-      return setFormCoords(moveEvt.pageX - shiftX + data.mainPinWidth / 2, moveEvt.pageY - shiftY + data.mainPinHeight);
+      var mapCoords = setBounds(moveEvt);
+      moveAt(mapCoords, shiftX, shiftY);
+      return setFormCoords(mapCoords.pageX - shiftX + data.MainPinWidth / 2, mapCoords.pageY - shiftY + data.MainPinHeight);
     };
 
     var onMouseUp = function (upEvt) {
@@ -46,13 +43,23 @@
     }
 
     function setBounds(evt) {
-      if (evt.pageX < adsCoords.left ||
-        evt.pageX > adsCoords.right ||
-        evt.pageY < adsCoords.top + DIALOG_TOP ||
-        evt.pageY > DIALOG_HEIGHT) {
-        return false;
+      var coordsOnMove = {
+        pageY: evt.pageY,
+        pageX: evt.pageX,
+      };
+      if (coordsOnMove.pageY < adsCoords.top + DIALOG_TOP) {
+        coordsOnMove.pageY = adsCoords.top + DIALOG_TOP;
       }
-      return true;
+      if (coordsOnMove.pageY > DIALOG_HEIGHT) {
+        coordsOnMove.pageY = DIALOG_HEIGHT;
+      }
+      if (coordsOnMove.pageX < adsCoords.left) {
+        coordsOnMove.pageX = adsCoords.left;
+      }
+      if (coordsOnMove.pageX > adsCoords.right) {
+        coordsOnMove.pageX = adsCoords.right;
+      }
+      return coordsOnMove;
     }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);

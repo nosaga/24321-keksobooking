@@ -35,21 +35,24 @@
   });
 
 
+  type.addEventListener('change', function (evt) {
+    var target = evt.target;
+    var typeValue = target.value;
+    console.log('typeValue:', typeValue);
+    console.log('Pricing[typeValue]:', Pricing[typeValue]);
+    price.placeholder = Pricing[typeValue];
+    console.log('price.placeholder:', price.placeholder);
+  });
+
   price.addEventListener('change', function (e) {
     var target = e.target;
     var typeValue = type.value;
     var priceValue = target.value;
-    if (priceValue < Pricing[typeValue]) {
+    if (parseInt(priceValue, 10) < Pricing[typeValue]) {
       target.setCustomValidity('минимальная цена за ночь ' + Pricing[typeValue]);
     } else {
       target.setCustomValidity('');
     }
-  });
-
-  type.addEventListener('change', function (evt) {
-    var target = evt.target;
-    var typeValue = target.value;
-    price.placeholder = Pricing[typeValue];
   });
 
   time.addEventListener('change', function (e) {

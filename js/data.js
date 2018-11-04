@@ -32,34 +32,19 @@
     .querySelector('.popup__photos');
   var photosTemplate = photosTile
     .querySelector('.popup__photo');
-  var srcItems = [
-    '01', '02', '03', '04', '05', '06', '07', '08'
-  ];
-  var titleItmes = [
-    'Большая уютная квартира',
-    'Маленькая неуютная квартира',
-    'Огромный прекрасный дворец',
-    'Маленький ужасный дворец',
-    'Красивый гостевой домик',
-    'Некрасивый негостеприимный домик',
-    'Уютное бунгало далеко от моря',
-    'Неуютное бунгало по колено в воде'
-  ];
-  var types = ['palace', 'flat', 'house', 'bungalo'];
   var TypeItems = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
     bungalo: 'Бунгало'
   };
-  var checkinItems = ['12:00', '13:00', '14:00'];
-  var checkoutItems = checkinItems;
-  var featuresItems = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var photosItems = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-  var pinHeight = 70;
-  var pinWidth = 50;
-  var mainPinHeight = 87;
-  var mainPinWidth = 65;
+  var CheckInItems = ['12:00', '13:00', '14:00'];
+  var CheckOutItems = CheckInItems;
+  var FeaturesItems = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  var PinHeight = 70;
+  var PinWidth = 50;
+  var MainPinHeight = 87;
+  var MainPinWidth = 65;
   var MAIN_PIN_COORDS_X = 570;
   var MAIN_PIN_COORDS_Y = 375;
   var ESC_KEYCODE = 27;
@@ -76,18 +61,14 @@
     adsTemplate: adsTemplate,
     photosTile: photosTile,
     photosTemplate: photosTemplate,
-    srcItems: srcItems,
-    titleItmes: titleItmes,
-    types: types,
     TypeItems: TypeItems,
-    checkinItems: checkinItems,
-    checkoutItems: checkoutItems,
-    featuresItems: featuresItems,
-    photosItems: photosItems,
-    pinHeight: pinHeight,
-    pinWidth: pinWidth,
-    mainPinHeight: mainPinHeight,
-    mainPinWidth: mainPinWidth,
+    CheckInItems: CheckInItems,
+    CheckOutItems: CheckOutItems,
+    FeaturesItems: FeaturesItems,
+    PinHeight: PinHeight,
+    PinWidth: PinWidth,
+    MainPinHeight: MainPinHeight,
+    MainPinWidth: MainPinWidth,
     ESC_KEYCODE: ESC_KEYCODE,
     MAIN_PIN_COORDS_X: MAIN_PIN_COORDS_X,
     MAIN_PIN_COORDS_Y: MAIN_PIN_COORDS_Y,

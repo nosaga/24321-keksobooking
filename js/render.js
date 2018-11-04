@@ -41,20 +41,18 @@
         adElement.querySelector('.popup__text--time').textContent = '';
       }
       if (checkField(ad.offer.features)) {
-        checkFeatures(ad.offer.features.indexOf('wifi'), adElement.querySelector('.popup__feature--wifi'));
-        checkFeatures(ad.offer.features.indexOf('dishwasher'), adElement.querySelector('.popup__feature--dishwasher'));
-        checkFeatures(ad.offer.features.indexOf('parking'), adElement.querySelector('.popup__feature--parking'));
-        checkFeatures(ad.offer.features.indexOf('washer'), adElement.querySelector('.popup__feature--washer'));
-        checkFeatures(ad.offer.features.indexOf('elevator'), adElement.querySelector('.popup__feature--elevator'));
-        checkFeatures(ad.offer.features.indexOf('conditioner'), adElement.querySelector('.popup__feature--conditioner'));
+        for (var i = 0; i < data.FeaturesItems.length; i++) {
+          var feature = data.FeaturesItems[i];
+          checkFeatures(ad.offer.features.indexOf(feature), adElement.querySelector('.popup__feature--' + feature));
+        }
       }
       adElement.querySelector('.popup__description').textContent = checkField(ad.offer.description);
       adElement.querySelector('.popup__avatar').src = checkField(ad.author.avatar);
       var fragmentPhotos = document.createDocumentFragment();
-      getSortedItem(data.photosItems);
-      for (var i = 0; i < data.photosItems.length; i++) {
+      getSortedItem(ad.offer.photos);
+      for (var i = 0; i < ad.offer.photos.length; i++) {
         var photoTiles = data.photosTemplate.cloneNode(true);
-        photoTiles.src = data.photosItems[i];
+        photoTiles.src = ad.offer.photos[i];
         fragmentPhotos.appendChild(photoTiles);
       }
       adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);

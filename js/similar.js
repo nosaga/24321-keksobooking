@@ -41,7 +41,9 @@
       if (Filter['housing-price'] === 'any') {
         return true;
       }
-
+      if (Filter['housing-price'] === 'middle') {
+        return price < Pricing.middle && price > Pricing.low;
+      }
       if (Filter['housing-price'] === 'high') {
         return price > Pricing[Filter['housing-price']];
       } else {
@@ -76,13 +78,15 @@
       );
     });
 
+    console.log(filtered);
+
     render.filteredAds = filtered;
     window.map.checkCard();
     window.map.removePins();
     window.pin.setPins();
   });
 
-  var onFilter = function (evt) {
+  var filterHandler = function (evt) {
     var target = evt.target;
     if (!Filter[target.name]) {
       return;
@@ -91,6 +95,6 @@
     window.updateCard();
   };
 
-  form.addEventListener('change', onFilter);
+  form.addEventListener('change', filterHandler);
   featuresAll.addEventListener('change', window.updateCard);
 })();

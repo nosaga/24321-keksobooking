@@ -27,14 +27,15 @@
 
   function hideSuccessMessage() {
     window.Data.successMessage.classList.add('hidden');
-    document.removeEventListener('keydown', escPress);
+    document.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener('click', hideSuccessMessage);
   }
 
   function hideErrorMessage() {
     window.Data.errorMessage.classList.add('hidden');
   }
 
-  function escPress(evt) {
+  function onPopupEscPress(evt) {
     if (evt.keyCode === window.Data.ESC_KEYCODE) {
       hideSuccessMessage();
     }
@@ -42,10 +43,9 @@
 
   var showSuccessMessage = function () {
     window.Data.main.appendChild(window.Data.successMessage);
-    document.addEventListener('keydown', escPress);
-    document.addEventListener('click', function () {
-      hideSuccessMessage();
-    });
+    window.Data.successMessage.classList.remove('hidden');
+    document.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener('click', hideSuccessMessage);
   };
 
   var showErrorMessage = function () {
@@ -60,7 +60,8 @@
 
   var onSuccessUpload = function () {
     showSuccessMessage();
-    window.map.mapDeactivationHandler();
+    window.map.deactivationHandler();
+    window.pin.setPinCoords();
   };
 
   var onErrorUpload = function () {
@@ -75,7 +76,7 @@
     }
   };
   var onError = function (response) {
-    return response;
+    throw new Error(response);
   };
 
   window.Data.form.addEventListener('submit', function (evt) {

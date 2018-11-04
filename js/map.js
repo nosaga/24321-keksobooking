@@ -4,13 +4,14 @@
   var data = window.Data;
   var pin = window.pin;
   window.map = {
-    mapDeactivationHandler: function () {
+    deactivationHandler: function () {
       window.map.checkClass();
       window.map.checkCard();
       window.map.removePins();
-      pin.setPinCoords();
       pin.setSvg();
       data.form.reset();
+      data.form.elements.price.placeholder = '1000';
+      pin.setPinCoords();
     },
     checkClass: function () {
       if (!(data.adsDialog.matches('.map--faded'))) {
@@ -30,15 +31,17 @@
         }
       }
     },
-    mapActivationHandler: function () {
+    activationHandler: function () {
+      window.load('https://js.dump.academy/keksobooking/data', function () {
+        pin.setPins();
+        pin.setPinCoords();
+        pin.setSvg();
+      });
       data.adsDialog.classList.remove('map--faded');
       data.form.classList.remove('ad-form--disabled');
       for (var i = 0; i < data.formFields.length; i++) {
         data.formFields[i].removeAttribute('disabled');
       }
-      pin.setPins();
-      pin.setPinCoords();
-      pin.setSvg();
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);
