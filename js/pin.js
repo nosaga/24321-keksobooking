@@ -37,7 +37,7 @@
     },
     setSvg: function () {
       var svg = document.querySelector('svg');
-      document.body.contains(document.querySelector('.map--faded')) ?
+      return document.body.contains(document.querySelector('.map--faded')) ?
         (svg.style.transform = 'rotate(-20deg) scale(1)') :
         (svg.style.transform = 'rotate(120deg) scale(0)');
     },
