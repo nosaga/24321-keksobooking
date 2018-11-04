@@ -2,7 +2,7 @@
 
 (function () {
   var FILE_TYPES = ['jpg', 'gif', 'jpeg', 'png'];
-  var data = window.Data;
+  var data = window.data;
   var fileChooser = data.form.elements.avatar;
   var preview = document.querySelector('.ad-form-header__preview').children[0];
 

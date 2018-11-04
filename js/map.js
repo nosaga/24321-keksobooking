@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.Data;
+  var data = window.data;
   var pin = window.pin;
   window.map = {
     deactivationHandler: function () {
@@ -12,6 +12,7 @@
       data.form.reset();
       data.form.elements.price.placeholder = '1000';
       pin.setPinCoords();
+      pin.setPinStyle();
     },
     checkClass: function () {
       if (!(data.adsDialog.matches('.map--faded'))) {
@@ -37,11 +38,12 @@
         pin.setPinCoords();
         pin.setSvg();
       });
+
       data.adsDialog.classList.remove('map--faded');
       data.form.classList.remove('ad-form--disabled');
-      for (var i = 0; i < data.formFields.length; i++) {
-        data.formFields[i].removeAttribute('disabled');
-      }
+      data.formFields.forEach(function (field) {
+        field.removeAttribute('disabled');
+      });
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);

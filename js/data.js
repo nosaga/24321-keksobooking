@@ -32,23 +32,23 @@
     .querySelector('.popup__photos');
   var photosTemplate = photosTile
     .querySelector('.popup__photo');
-  var TypeItems = {
+  var TYPE_ITEMS = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
     bungalo: 'Бунгало'
   };
-  var CheckInItems = ['12:00', '13:00', '14:00'];
-  var CheckOutItems = CheckInItems;
-  var FeaturesItems = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var PinHeight = 70;
-  var PinWidth = 50;
-  var MainPinHeight = 87;
-  var MainPinWidth = 65;
+  var CHECK_IN_ITEMS = ['12:00', '13:00', '14:00'];
+  var CHECK_OUT_ITEMS = CHECK_IN_ITEMS;
+  var FEATURES_ITEMS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  var PIN_HEIGHT = 70;
+  var PIN_WIDTH = 50;
+  var MAIN_PIN_HEIGHT = 87;
+  var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_COORDS_X = 570;
   var MAIN_PIN_COORDS_Y = 375;
   var ESC_KEYCODE = 27;
-  window.Data = {
+  window.data = {
     main: main,
     form: form,
     adsDialog: adsDialog,
@@ -61,14 +61,14 @@
     adsTemplate: adsTemplate,
     photosTile: photosTile,
     photosTemplate: photosTemplate,
-    TypeItems: TypeItems,
-    CheckInItems: CheckInItems,
-    CheckOutItems: CheckOutItems,
-    FeaturesItems: FeaturesItems,
-    PinHeight: PinHeight,
-    PinWidth: PinWidth,
-    MainPinHeight: MainPinHeight,
-    MainPinWidth: MainPinWidth,
+    TYPE_ITEMS: TYPE_ITEMS,
+    CHECK_IN_ITEMS: CHECK_IN_ITEMS,
+    CHECK_OUT_ITEMS: CHECK_OUT_ITEMS,
+    FEATURES_ITEMS: FEATURES_ITEMS,
+    PIN_HEIGHT: PIN_HEIGHT,
+    PIN_WIDTH: PIN_WIDTH,
+    MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT,
+    MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
     ESC_KEYCODE: ESC_KEYCODE,
     MAIN_PIN_COORDS_X: MAIN_PIN_COORDS_X,
     MAIN_PIN_COORDS_Y: MAIN_PIN_COORDS_Y,

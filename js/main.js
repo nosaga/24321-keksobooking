@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.Data;
+  var data = window.data;
   var map = window.map;
   document.addEventListener('DOMContentLoaded', window.pin.setPinCoords);
   data.mapPinMain.addEventListener('mouseup', window.map.activationHandler);

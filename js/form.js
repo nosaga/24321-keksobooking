@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var data = window.Data;
+  var data = window.data;
   var rooms = data.form.elements.rooms;
   var guests = data.form.elements.capacity;
   var price = data.form.elements.price;
@@ -9,7 +9,7 @@
   var time = document.querySelector('.ad-form__element--time');
 
 
-  var Pricing = {
+  var PRICING = {
     flat: 1000,
     house: 5000,
     palace: 10000,
@@ -38,18 +38,15 @@
   type.addEventListener('change', function (evt) {
     var target = evt.target;
     var typeValue = target.value;
-    console.log('typeValue:', typeValue);
-    console.log('Pricing[typeValue]:', Pricing[typeValue]);
-    price.placeholder = Pricing[typeValue];
-    console.log('price.placeholder:', price.placeholder);
+    price.placeholder = PRICING[typeValue];
   });
 
   price.addEventListener('change', function (e) {
     var target = e.target;
     var typeValue = type.value;
     var priceValue = target.value;
-    if (parseInt(priceValue, 10) < Pricing[typeValue]) {
-      target.setCustomValidity('минимальная цена за ночь ' + Pricing[typeValue]);
+    if (parseInt(priceValue, 10) < PRICING[typeValue]) {
+      target.setCustomValidity('минимальная цена за ночь ' + PRICING[typeValue]);
     } else {
       target.setCustomValidity('');
     }

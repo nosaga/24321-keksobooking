@@ -3,7 +3,7 @@
 (function () {
   var DIALOG_TOP = 130;
   var DIALOG_HEIGHT = 630;
-  var data = window.Data;
+  var data = window.data;
 
   data.mapPinMain.addEventListener('mousedown', function (e) {
     e.preventDefault();
@@ -13,18 +13,18 @@
     var adsCoords = data.adsDialog.getBoundingClientRect();
     document.body.insertAdjacentElement('afterbegin', data.mapPinMain);
     moveAt(e, shiftX, shiftY);
-    var onMouseMove = function (moveEvt) {
+    function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
       var mapCoords = setBounds(moveEvt);
       moveAt(mapCoords, shiftX, shiftY);
-      return setFormCoords(mapCoords.pageX - shiftX + data.MainPinWidth / 2, mapCoords.pageY - shiftY + data.MainPinHeight);
-    };
+      return setFormCoords(mapCoords.pageX - shiftX + data.MAIN_PIN_WIDTH / 2, mapCoords.pageY - shiftY + data.MAIN_PIN_HEIGHT);
+    }
 
-    var onMouseUp = function (upEvt) {
+    function onMouseUp(upEvt) {
       upEvt.preventDefault();
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-    };
+    }
 
     function getCoords(elem) {
       var box = elem.getBoundingClientRect();
@@ -33,6 +33,7 @@
         top: box.top + window.pageYOffset
       };
     }
+
     function moveAt(evt, x, y) {
       data.mapPinMain.style.left = evt.pageX - x + 'px';
       data.mapPinMain.style.top = evt.pageY - y + 'px';
@@ -61,6 +62,8 @@
       }
       return coordsOnMove;
     }
+
+
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
