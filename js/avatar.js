@@ -17,7 +17,7 @@
 
   photoChooser.addEventListener('change', function () {
     setImageHandler(photoChooser, photoPreview);
-  })
+  });
 
   function setImageHandler(elem, preview) {
     var file = elem.files[0];

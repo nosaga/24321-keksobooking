@@ -51,9 +51,9 @@
       adElement.querySelector('.popup__avatar').src = checkField(ad.author.avatar);
       var fragmentPhotos = document.createDocumentFragment();
       getSortedItem(ad.offer.photos);
-      for (var i = 0; i < ad.offer.photos.length; i++) {
+      for (var j = 0; j < ad.offer.photos.length; j++) {
         var photoTiles = data.photosTemplate.cloneNode(true);
-        photoTiles.src = ad.offer.photos[i];
+        photoTiles.src = ad.offer.photos[j];
         fragmentPhotos.appendChild(photoTiles);
       }
       adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
