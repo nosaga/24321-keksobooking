@@ -45,7 +45,8 @@
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);
-      window.map.checkAd(data.previousAd, ad);
+      var previousAd = document.querySelector('.map__card');
+      window.map.checkAd(previousAd, ad);
     },
     checkAd: function (currentAd, newAd) {
       if (data.adsDialog.contains(currentAd)) {
