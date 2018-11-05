@@ -25,12 +25,10 @@
       }
     },
     removePins: function () {
-      for (var i = 0; i < data.mapPins.children.length; i++) {
-        if (data.mapPins.children[i].hasAttribute('data-index')) {
-          data.mapPins.removeChild(data.mapPins.children[i]);
-          i--;
-        }
-      }
+      var buttons = data.mapPins.querySelectorAll('button');
+      buttons.forEach(function (button) {
+        data.mapPins.removeChild(button);
+      });
     },
     activationHandler: function () {
       window.load('https://js.dump.academy/keksobooking/data', function () {
@@ -47,8 +45,7 @@
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);
-      var previousAd = document.querySelector('.map__card');
-      window.map.checkAd(previousAd, ad);
+      window.map.checkAd(data.previousAd, ad);
     },
     checkAd: function (currentAd, newAd) {
       if (data.adsDialog.contains(currentAd)) {

@@ -5,6 +5,7 @@
   var form = document.querySelector('.ad-form');
   var formReset = document.querySelector('.ad-form__reset');
   var adsDialog = document.querySelector('.map');
+  var previousAd = document.querySelector('.map__card');
   var formFields = document.querySelectorAll('fieldset');
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapOverlay = document.querySelector('.map__overlay');
@@ -61,6 +62,7 @@
     adsTemplate: adsTemplate,
     photosTile: photosTile,
     photosTemplate: photosTemplate,
+    previousAd: previousAd,
     TYPE_ITEMS: TYPE_ITEMS,
     CHECK_IN_ITEMS: CHECK_IN_ITEMS,
     CHECK_OUT_ITEMS: CHECK_OUT_ITEMS,
