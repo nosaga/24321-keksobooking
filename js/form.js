@@ -23,34 +23,47 @@
     var target = evt.target;
     var roomValue = parseInt(rooms.value, 10);
     var guestValue = parseInt(target.value, 10);
-    if (roomValue === 100 && guestValue !== 0) {
+    checkCapacity(roomValue, guestValue, target, rooms.value);
+  });
+
+  rooms.addEventListener('change', function (evt) {
+    var target = evt.target;
+    var roomValue = parseInt(target.value, 10);
+    var guestValue = parseInt(guests.value, 10);
+    checkCapacity(roomValue, guestValue, target);
+  });
+  function checkCapacity(roomNum, guestNum, target) {
+    if (roomNum === 100 && guestNum !== 0) {
       target.setCustomValidity('100 комнат не для гостей');
-    } else if (guestValue === 0 && roomValue !== 100) {
+    } else if (guestNum === 0 && roomNum !== 100) {
       target.setCustomValidity('100 комнат не для гостей');
-    } else if (roomValue >= guestValue) {
+    } else if (roomNum >= guestNum) {
       target.setCustomValidity('');
     } else {
       target.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
     }
-  });
-
+  }
 
   type.addEventListener('change', function (evt) {
     var target = evt.target;
     var typeValue = target.value;
     price.placeholder = PRICING[typeValue];
+    checkValidity(typeValue, PRICING[typeValue], target);
   });
 
   price.addEventListener('change', function (e) {
     var target = e.target;
     var typeValue = type.value;
     var priceValue = target.value;
-    if (parseInt(priceValue, 10) < PRICING[typeValue]) {
-      target.setCustomValidity('минимальная цена за ночь ' + PRICING[typeValue]);
+    checkValidity(priceValue, PRICING[typeValue], target);
+  });
+  function checkValidity(pricing, accomodation, target) {
+    if (parseInt(pricing, 10) < accomodation) {
+      target.setCustomValidity('минимальная цена за ночь ' + accomodation);
     } else {
       target.setCustomValidity('');
     }
-  });
+  }
 
   time.addEventListener('change', function (e) {
     var checkin = data.form.elements.timein;
