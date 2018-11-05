@@ -1,16 +1,18 @@
 'use strict';
 
 (function () {
-  var data = window.Data;
+  var data = window.data;
   var pin = window.pin;
   window.map = {
-    mapDeactivationHandler: function () {
+    deactivationHandler: function () {
       window.map.checkClass();
       window.map.checkCard();
       window.map.removePins();
-      pin.setPinCoords();
       pin.setSvg();
       data.form.reset();
+      data.form.elements.price.placeholder = '1000';
+      pin.setPinCoords();
+      pin.setPinStyle();
     },
     checkClass: function () {
       if (!(data.adsDialog.matches('.map--faded'))) {
@@ -23,22 +25,23 @@
       }
     },
     removePins: function () {
-      for (var i = 0; i < data.mapPins.children.length; i++) {
-        if (data.mapPins.children[i].hasAttribute('data-index')) {
-          data.mapPins.removeChild(data.mapPins.children[i]);
-          i--;
-        }
-      }
+      var buttons = data.mapPins.querySelectorAll('button');
+      buttons.forEach(function (button) {
+        data.mapPins.removeChild(button);
+      });
     },
-    mapActivationHandler: function () {
+    activationHandler: function () {
+      window.load('https://js.dump.academy/keksobooking/data', function () {
+        pin.setPins();
+        pin.setPinCoords();
+        pin.setSvg();
+      });
+
       data.adsDialog.classList.remove('map--faded');
       data.form.classList.remove('ad-form--disabled');
-      for (var i = 0; i < data.formFields.length; i++) {
-        data.formFields[i].removeAttribute('disabled');
-      }
-      pin.setPins();
-      pin.setPinCoords();
-      pin.setSvg();
+      data.formFields.forEach(function (field) {
+        field.removeAttribute('disabled');
+      });
     },
     showAds: function (index) {
       var ad = window.render.renderAd(window.render.filteredAds[index]);

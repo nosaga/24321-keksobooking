@@ -131,7 +131,7 @@
                  name="price"
                  type="number"
                  max="1000000"
-                 placeholder="5000"
+                 placeholder="1000"
                 required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
@@ -251,14 +251,14 @@
   </template>
 
   <!-- Сообщение об успешном создании объявления -->
-  <template id="success">
+  <template id="success" tabindex="0">
     <div class="success">
       <p class="success__message">Ваше объявление<br>успешно размещено!</p>
     </div>
   </template>
 
   <!-- Сообщение об ошибке создания объеявления -->
-  <template id="error" tabindex="0">
+  <template id="error">
     <div class="error">
       <p class="error__message">Ошибка загрузки объявления</p>
       <button class="error__button" href="#">Попробовать снова</button>

@@ -26,41 +26,48 @@
   };
 
   function hideSuccessMessage() {
-    window.Data.successMessage.classList.add('hidden');
-    document.removeEventListener('keydown', escPress);
+    window.data.successMessage.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessEscPress);
+    document.removeEventListener('click', hideSuccessMessage);
   }
 
   function hideErrorMessage() {
-    window.Data.errorMessage.classList.add('hidden');
+    window.data.errorMessage.classList.add('hidden');
+    document.removeEventListener('keydown', onErrorEscPress);
+    document.removeEventListener('click', hideErrorMessage);
   }
 
-  function escPress(evt) {
-    if (evt.keyCode === window.Data.ESC_KEYCODE) {
+  function onSuccessEscPress(evt) {
+    if (evt.keyCode === window.data.ESC_KEYCODE) {
       hideSuccessMessage();
     }
   }
 
+  function onErrorEscPress(evt) {
+    if (evt.keyCode === window.data.ESC_KEYCODE) {
+      hideErrorMessage();
+    }
+  }
+
   var showSuccessMessage = function () {
-    window.Data.main.appendChild(window.Data.successMessage);
-    document.addEventListener('keydown', escPress);
-    document.addEventListener('click', function () {
-      hideSuccessMessage();
-    });
+    window.data.main.appendChild(window.data.successMessage);
+    window.data.successMessage.classList.remove('hidden');
+    document.addEventListener('keydown', onSuccessEscPress);
+    document.addEventListener('click', hideSuccessMessage);
   };
 
   var showErrorMessage = function () {
-    window.Data.main.appendChild(window.Data.errorMessage);
-    window.Data.closeButton.addEventListener('click', function () {
-      hideErrorMessage();
-    });
-    document.addEventListener('click', function () {
-      hideErrorMessage();
-    });
+    window.data.main.appendChild(window.data.errorMessage);
+    window.data.errorMessage.classList.remove('hidden');
+    window.data.closeButton.addEventListener('click', hideErrorMessage);
+    document.addEventListener('keydown', onErrorEscPress);
+    document.addEventListener('click', hideErrorMessage);
   };
 
   var onSuccessUpload = function () {
     showSuccessMessage();
-    window.map.mapDeactivationHandler();
+    window.map.deactivationHandler();
+    window.pin.setPinCoords();
   };
 
   var onErrorUpload = function () {
@@ -75,12 +82,12 @@
     }
   };
   var onError = function (response) {
-    return response;
+    throw new Error(response);
   };
 
-  window.Data.form.addEventListener('submit', function (evt) {
+  window.data.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    upload(new FormData(window.Data.form), onLoad, onError);
+    upload(new FormData(window.data.form), onLoad, onError);
   });
 })();
 

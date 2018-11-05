@@ -2,13 +2,13 @@
 (function () {
   var form = document.querySelector('form');
   var featuresAll = document.querySelector('#housing-features');
-  var Filter = {
+  var FILTER = {
     'housing-type': 'any',
     'housing-price': 'any',
     'housing-rooms': 'any',
     'housing-guests': 'any',
   };
-  var Pricing = {
+  var PRICING = {
     low: 10000,
     middle: 50000,
     high: 50000
@@ -17,35 +17,37 @@
   window.updateCard = window.debounce(function () {
 
     var compareType = function (type) {
-      if (Filter['housing-type'] === 'any') {
+      if (FILTER['housing-type'] === 'any') {
         return true;
       }
-      return type === Filter['housing-type'];
+      return type === FILTER['housing-type'];
     };
 
     var compareRooms = function (number) {
-      if (Filter['housing-rooms'] === 'any') {
+      if (FILTER['housing-rooms'] === 'any') {
         return true;
       }
-      return number === parseInt(Filter['housing-rooms'], 10);
+      return number === parseInt(FILTER['housing-rooms'], 10);
     };
 
     var compareGuests = function (guestNumber) {
-      if (Filter['housing-guests'] === 'any') {
+      if (FILTER['housing-guests'] === 'any') {
         return true;
       }
-      return guestNumber === parseInt(Filter['housing-guests'], 10);
+      return guestNumber === parseInt(FILTER['housing-guests'], 10);
     };
 
     var comparePrice = function (price) {
-      if (Filter['housing-price'] === 'any') {
+      if (FILTER['housing-price'] === 'any') {
         return true;
       }
-
-      if (Filter['housing-price'] === 'high') {
-        return price > Pricing[Filter['housing-price']];
+      if (FILTER['housing-price'] === 'middle') {
+        return price < PRICING.middle && price > PRICING.low;
+      }
+      if (FILTER['housing-price'] === 'high') {
+        return price > PRICING[FILTER['housing-price']];
       } else {
-        return price < Pricing[Filter['housing-price']];
+        return price < PRICING[FILTER['housing-price']];
       }
     };
 
@@ -82,15 +84,15 @@
     window.pin.setPins();
   });
 
-  var onFilter = function (evt) {
+  var filterHandler = function (evt) {
     var target = evt.target;
-    if (!Filter[target.name]) {
+    if (!FILTER[target.name]) {
       return;
     }
-    Filter[evt.target.name] = target.value;
+    FILTER[evt.target.name] = target.value;
     window.updateCard();
   };
 
-  form.addEventListener('change', onFilter);
+  form.addEventListener('change', filterHandler);
   featuresAll.addEventListener('change', window.updateCard);
 })();
