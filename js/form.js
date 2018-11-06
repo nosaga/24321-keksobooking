@@ -19,38 +19,39 @@
   for (var l = 0; l < data.formFields.length; l++) {
     data.formFields[l].setAttribute('disabled', 'disabled');
   }
-  guests.addEventListener('change', function (evt) {
-    var target = evt.target;
+  rooms.addEventListener('change', checkCapacity);
+  guests.addEventListener('change', checkCapacity);
+  function checkCapacity() {
     var roomValue = parseInt(rooms.value, 10);
-    var guestValue = parseInt(target.value, 10);
+    var guestValue = parseInt(guests.value, 10);
     if (roomValue === 100 && guestValue !== 0) {
-      target.setCustomValidity('100 комнат не для гостей');
+      guests.setCustomValidity('100 комнат не для гостей');
     } else if (guestValue === 0 && roomValue !== 100) {
-      target.setCustomValidity('100 комнат не для гостей');
+      guests.setCustomValidity('100 комнат не для гостей');
     } else if (roomValue >= guestValue) {
-      target.setCustomValidity('');
+      guests.setCustomValidity('');
     } else {
-      target.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
+      guests.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
     }
-  });
-
+  }
 
   type.addEventListener('change', function (evt) {
     var target = evt.target;
     var typeValue = target.value;
     price.placeholder = PRICING[typeValue];
+    checkTypeAndPrice();
   });
 
-  price.addEventListener('change', function (e) {
-    var target = e.target;
+  price.addEventListener('change', checkTypeAndPrice);
+  function checkTypeAndPrice() {
     var typeValue = type.value;
-    var priceValue = target.value;
+    var priceValue = price.value;
     if (parseInt(priceValue, 10) < PRICING[typeValue]) {
-      target.setCustomValidity('минимальная цена за ночь ' + PRICING[typeValue]);
+      price.setCustomValidity('минимальная цена за ночь ' + PRICING[typeValue]);
     } else {
-      target.setCustomValidity('');
+      price.setCustomValidity('');
     }
-  });
+  }
 
   time.addEventListener('change', function (e) {
     var checkin = data.form.elements.timein;
