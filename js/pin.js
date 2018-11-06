@@ -22,7 +22,7 @@
         }
         var target = evt.target;
         target.classList.add('map__pin—active');
-        window.map.showAds(target.closest('button').getAttribute('data-index'));
+        window.map.showAds(target.closest('button').dataset.index = i);
       }
     },
     setPins: function () {
