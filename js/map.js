@@ -20,8 +20,9 @@
       }
     },
     checkCard: function () {
-      if (data.adsDialog.contains(document.querySelector('.map__card'))) {
-        document.querySelector('.map__card').classList.add('hidden');
+      var mapCard = document.querySelector('.map__card');
+      if (data.adsDialog.contains(mapCard)) {
+        mapCard.classList.add('hidden');
       }
     },
     removePins: function () {
