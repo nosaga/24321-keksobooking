@@ -42,12 +42,12 @@
         return true;
       }
       if (FILTER['housing-price'] === 'middle') {
-        return price < PRICING.middle && price > PRICING.low;
+        return price <= PRICING.middle && price >= PRICING.low;
       }
       if (FILTER['housing-price'] === 'high') {
-        return price > PRICING[FILTER['housing-price']];
+        return price >= PRICING[FILTER['housing-price']];
       } else {
-        return price < PRICING[FILTER['housing-price']];
+        return price <= PRICING[FILTER['housing-price']];
       }
     };
 
