@@ -29,7 +29,7 @@
       guests.setCustomValidity('Количество гостей не может быть больше ' + rooms.value);
     }
   };
-  var checkTypeAndPrice = function() {
+  var checkTypeAndPrice = function () {
     var typeValue = type.value;
     var priceValue = price.value;
     if (parseInt(priceValue, 10) < PRICING[typeValue]) {

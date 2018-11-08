@@ -29,25 +29,25 @@
     window.data.successMessage.classList.add('hidden');
     document.removeEventListener('keydown', onSuccessEscPress);
     document.removeEventListener('click', hideSuccessMessage);
-  }
+  };
 
   var hideErrorMessage = function () {
     window.data.errorMessage.classList.add('hidden');
     document.removeEventListener('keydown', onErrorEscPress);
     document.removeEventListener('click', hideErrorMessage);
-  }
+  };
 
   var onSuccessEscPress = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {
       hideSuccessMessage();
     }
-  }
+  };
 
   var onErrorEscPress = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {
       hideErrorMessage();
     }
-  }
+  };
 
   var showSuccessMessage = function () {
     window.data.main.appendChild(window.data.successMessage);

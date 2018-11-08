@@ -32,7 +32,7 @@
     elem.style.display = 'flex';
     elem.style.alignItems = 'center';
     elem.style.justifyContent = 'center';
-  }
+  };
 
   photo.insertAdjacentHTML('afterBegin', '<img src="img/muffin-grey.svg\" alt="фото объекта размещения" width="40" height="44">');
   setStyles(photo);
