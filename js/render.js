@@ -57,18 +57,18 @@
         fragmentPhotos.appendChild(photoTiles);
       }
       adElement.querySelector('.popup__photos').appendChild(fragmentPhotos);
-      adElement.querySelector('.popup__close').addEventListener('click', closeCard);
-      document.addEventListener('keydown', closeEscPress);
-      return adElement;
-      function closeCard() {
+      var closeCard = function () {
         adElement.classList.add('hidden');
         document.removeEventListener('keydown', closeEscPress);
-      }
-      function closeEscPress(evt) {
+      };
+      var closeEscPress = function (evt) {
         if (evt.keyCode === data.ESC_KEYCODE) {
           closeCard();
         }
-      }
+      };
+      adElement.querySelector('.popup__close').addEventListener('click', closeCard);
+      document.addEventListener('keydown', closeEscPress);
+      return adElement;
     }
   };
 })();

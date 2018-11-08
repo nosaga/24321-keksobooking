@@ -25,25 +25,25 @@
     xhr.send(data);
   };
 
-  function hideSuccessMessage() {
+  var hideSuccessMessage = function () {
     window.data.successMessage.classList.add('hidden');
     document.removeEventListener('keydown', onSuccessEscPress);
     document.removeEventListener('click', hideSuccessMessage);
   }
 
-  function hideErrorMessage() {
+  var hideErrorMessage = function () {
     window.data.errorMessage.classList.add('hidden');
     document.removeEventListener('keydown', onErrorEscPress);
     document.removeEventListener('click', hideErrorMessage);
   }
 
-  function onSuccessEscPress(evt) {
+  var onSuccessEscPress = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {
       hideSuccessMessage();
     }
   }
 
-  function onErrorEscPress(evt) {
+  var onErrorEscPress = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {
       hideErrorMessage();
     }
