@@ -49,7 +49,7 @@
     },
     setPinStyle: function () {
       var adsCoords = data.adsDialog.getBoundingClientRect();
-      data.mapPinMain.style.left = adsCoords.width / 2 + data.MAIN_PIN_WIDTH / 2 + 'px';
+      data.mapPinMain.style.left = document.documentElement.clientWidth / 2 - data.MAIN_PIN_WIDTH / 2 + 'px';
       data.mapPinMain.style.top = adsCoords.height / 2 + 'px';
     }
   };
