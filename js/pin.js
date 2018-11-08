@@ -37,9 +37,9 @@
     },
     setSvg: function () {
       var svg = document.querySelector('svg');
-      return document.body.contains(document.querySelector('.map--faded')) ?
-        (svg.style.transform = 'rotate(-20deg) scale(1)') :
-        (svg.style.transform = 'rotate(120deg) scale(0)');
+      svg.style.transform = document.body.contains(document.querySelector('.map--faded')) ?
+        'rotate(-20deg) scale(1)' :
+        'rotate(120deg) scale(0)';
     },
     setPinCoords: function () {
       var x = Math.floor(data.mapPinMain.offsetLeft + data.MAIN_PIN_WIDTH / 2);
